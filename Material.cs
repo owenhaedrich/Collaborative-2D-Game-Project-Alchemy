@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Collaborative_2D_Game_Project
 {
@@ -14,7 +10,7 @@ namespace Collaborative_2D_Game_Project
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
         //Basic Materials
-        public static Material Junk = new Material("Junk", []);
+        public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
         public static Material Fire = new Material("Fire", []);
         public static Material Water = new Material("Water", []);
         public static Material Earth = new Material("Earth", []);
@@ -23,7 +19,7 @@ namespace Collaborative_2D_Game_Project
         //Combined Materials
         public static Material Mud = new Material("Mud", [Water, Earth]);
 
-        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud};
+        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
 
         public static Material Combine(Material[] inputMaterials)
         {
@@ -34,7 +30,7 @@ namespace Collaborative_2D_Game_Project
 
             foreach (Material material in materials)
             {
-                // Ensure the materials are sorted alphabetically
+                // Ensure the made-from materials are sorted alphabetically
                 Material[] orderedMadeFrom = material.madeFrom.OrderBy(GetMaterialName).ToArray();
                 if (orderedMadeFrom.SequenceEqual(orderedInputMaterials))
                 {

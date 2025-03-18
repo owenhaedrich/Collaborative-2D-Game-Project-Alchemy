@@ -51,6 +51,8 @@ public class Game
 
     public void Menu()
     {
+        Window.ClearBackground(Color.OffWhite);
+        Console.WriteLine("Click to play");
     }
 
     public void Play()
