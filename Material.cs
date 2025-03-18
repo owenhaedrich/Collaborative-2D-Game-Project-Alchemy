@@ -13,15 +13,19 @@ namespace Collaborative_2D_Game_Project
         public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
+        //Basic Materials
         public static Material Junk = new Material("Junk", []);
         public static Material Fire = new Material("Fire", []);
         public static Material Water = new Material("Water", []);
         public static Material Earth = new Material("Earth", []);
-        public static Material Air = new Material("Air", []); 
+        public static Material Air = new Material("Air", []);
 
-        public static Material[] materials = { Junk, Fire, Water, Earth, Air };
+        //Combined Materials
+        public static Material Mud = new Material("Mud", [Water, Earth]);
 
-        public Material Combine(Material[] inputMaterials)
+        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud};
+
+        public static Material Combine(Material[] inputMaterials)
         {
             // Combine the materials to create a new material
 
@@ -32,7 +36,7 @@ namespace Collaborative_2D_Game_Project
             {
                 // Ensure the materials are sorted alphabetically
                 Material[] orderedMadeFrom = material.madeFrom.OrderBy(GetMaterialName).ToArray();
-                if (material.madeFrom.SequenceEqual(orderedMadeFrom))
+                if (orderedMadeFrom.SequenceEqual(orderedInputMaterials))
                 {
                     // The new material is returned
                     return material;
@@ -43,7 +47,8 @@ namespace Collaborative_2D_Game_Project
             return Junk;
         }
 
-        string GetMaterialName(Material material)
+        // Get the name of the material. This is used to sort the materials alphabetically
+        static string GetMaterialName(Material material)
         {
             return material.name;
         }

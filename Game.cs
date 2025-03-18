@@ -1,6 +1,7 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
 using System.Numerics;
+using Collaborative_2D_Game_Project;
 
 // The namespace your code is in.
 namespace MohawkGame2D;
@@ -54,6 +55,7 @@ public class Game
 
     public void Play()
     {
+        Console.WriteLine(Material.Combine([Material.Water, Material.Earth]).name);
     }
 
     public void GameOver()
