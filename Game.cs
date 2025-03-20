@@ -21,9 +21,9 @@ public class Game
 
     gameState state = gameState.Menu;
 
-    // Game Objects
-    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
-    ItemHolder[] shelves = new ItemHolder[40];
+    // Shelves
+    const int shelfWidth = 4;
+    const int shelfHeight = 5;
 
     // Cauldron
     Vector2 cauldronPosition = new Vector2(400, 300);
@@ -32,13 +32,15 @@ public class Game
     // Physics
     Vector2 gravity = Vector2.UnitY * 10;
 
+    // Game Objects
+    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
+    ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
+
     public void Setup()
     {
         Window.SetSize(800, 600);
 
         // Generate Shelves
-        int shelfWidth = 4;
-        int shelfHeight = 5;
         int i = 0;
         for (int x = 0; x < shelfWidth; x++)
         {
@@ -86,11 +88,8 @@ public class Game
 
         foreach (ItemHolder itemHolder in shelves)
         {
-            if (itemHolder is not null)
-{           { 
-                    itemHolder.Render(); 
-            }
-}        }
+            itemHolder.Render();
+        }
 
         MoveInteractables();
         ManageCauldron();
@@ -145,14 +144,11 @@ public class Game
             // Check if the interactable is near an item holder
             foreach (ItemHolder itemHolder in shelves)
             {
-                if (itemHolder is not null)
+                Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
+                bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
+                if (closeToItemHolder)
                 {
-                    Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
-                    bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
-                    if (closeToItemHolder)
-                    {
-                        interactable.homePosition = itemHolder.position;
-                    }
+                    interactable.homePosition = itemHolder.position;
                 }
             }
         }
