@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
@@ -7,6 +8,7 @@ namespace Collaborative_2D_Game_Project
     {
         public string name = name;
         public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
+        public Texture2D texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
         //Basic Materials
