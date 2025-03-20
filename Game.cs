@@ -29,6 +29,9 @@ public class Game
     Vector2 cauldronPosition = new Vector2(400, 300);
     float cauldronRadius = 50;
 
+    // Physics
+    Vector2 gravity = Vector2.UnitY * 10;
+
     public void Setup()
     {
         Window.SetSize(800, 600);
@@ -112,9 +115,12 @@ public class Game
                 // Interactables move back to their home position if they are not being moved
                 if (interactable.homePosition != Vector2.NegativeInfinity)
                 {
-                    if (Vector2.Distance(interactable.position + interactableSize / 2, interactable.homePosition) > 10)
+                    float distanceToHome = Vector2.Distance(interactable.position + interactableSize / 2, interactable.homePosition);
+                    if (distanceToHome > 10)
                     {
-                        interactable.position = Vector2.Lerp(interactable.position, interactable.homePosition - interactableSize / 2, 0.1f);
+                        float newX = float.Lerp(interactable.position.X, interactable.homePosition.X - interactableSize.X / 2, 0.03f);
+                        float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * 2.7f);
+                        interactable.position = new Vector2(newX, newY);
                     }
                 }
             }
