@@ -19,10 +19,11 @@ public class Game
     }
 
     gameState state = gameState.Menu;
+    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
 
     public void Setup()
     {
-
+        Window.SetSize(800, 600);
     }
 
     public void Update()
@@ -52,12 +53,31 @@ public class Game
     public void Menu()
     {
         Window.ClearBackground(Color.OffWhite);
-        Console.WriteLine("Click to play");
     }
 
     public void Play()
     {
-        Console.WriteLine(Material.Combine([Material.Water, Material.Earth]).name);
+        Window.ClearBackground(Color.OffWhite);
+
+        foreach (Interactable interactable in interactables)
+        {
+            Vector2 interactableSize = new Vector2(interactable.texture.Width, interactable.texture.Height);
+            bool closeToInteractable = Vector2.Distance(Input.GetMousePosition(), interactable.position + interactableSize/2) < 50;
+            interactable.Render();
+            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable)
+            { 
+                interactable.Interact();
+                break;
+            }
+            if (interactable.moving)
+            {
+                interactable.position = Input.GetMousePosition() - interactableSize/2;
+                if (!Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    interactable.moving = false;
+                }
+            }
+        }
     }
 
     public void GameOver()
