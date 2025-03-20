@@ -23,7 +23,7 @@ public class Game
 
     // Game Objects
     Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
-    ItemHolder[] itemHolders = [new ItemHolder(new Vector2(100, 100)), new ItemHolder(new Vector2(500, 100))];
+    ItemHolder[] shelves = new ItemHolder[40];
 
     // Cauldron
     Vector2 cauldronPosition = new Vector2(400, 300);
@@ -35,6 +35,20 @@ public class Game
     public void Setup()
     {
         Window.SetSize(800, 600);
+
+        // Generate Shelves
+        int shelfWidth = 4;
+        int shelfHeight = 5;
+        int i = 0;
+        for (int x = 0; x < shelfWidth; x++)
+        {
+            for (int y = 0; y < shelfHeight; y++)
+            {
+                shelves[i] = (new ItemHolder(new Vector2(50 + x * 75, 100 + y * 100)));
+                shelves[i + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 100 + y * 100)));
+                i++;
+            }
+        }
     }
 
     public void Update()
@@ -70,10 +84,13 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
-        foreach (ItemHolder itemHolder in itemHolders)
+        foreach (ItemHolder itemHolder in shelves)
         {
-            itemHolder.Render();
-        }
+            if (itemHolder is not null)
+{           { 
+                    itemHolder.Render(); 
+            }
+}        }
 
         MoveInteractables();
         ManageCauldron();
@@ -126,13 +143,16 @@ public class Game
             }
 
             // Check if the interactable is near an item holder
-            foreach (ItemHolder itemHolder in itemHolders)
+            foreach (ItemHolder itemHolder in shelves)
             {
-                Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
-                bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize/2, itemHolder.position + itemHolderSize / 2) < 15;
-                if (closeToItemHolder)
+                if (itemHolder is not null)
                 {
-                    interactable.homePosition = itemHolder.position;
+                    Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
+                    bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
+                    if (closeToItemHolder)
+                    {
+                        interactable.homePosition = itemHolder.position;
+                    }
                 }
             }
         }
