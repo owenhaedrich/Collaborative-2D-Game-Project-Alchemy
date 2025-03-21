@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Collaborative_2D_Game_Project
@@ -15,11 +16,28 @@ namespace Collaborative_2D_Game_Project
         public static Material Water = new Material("Water", []);
         public static Material Earth = new Material("Earth", []);
         public static Material Air = new Material("Air", []);
+        public static Material Sun = new Material("Sun", []);
+        public static Material Ice = new Material("Ice", []);
+
 
         //Combined Materials
         public static Material Mud = new Material("Mud", [Water, Earth]);
+        public static Material Sand = new Material("Sand", [Earth, Air]);
+        public static Material Soil = new Material("Soil", [Mud, Sand, Water, Sun]);
+        public static Material Salt = new Material("Salt", [Water, Fire, Earth]);
+        public static Material Metal = new Material("Metal",[Earth, Fire]);
+        public static Material Plant = new Material("Plant", [Soil, Sun]);
+        public static Material Glass = new Material("Glass",[Sand, Fire]);
+        public static Material Lava = new Material("Lava",[Earth, Fire]);
+        public static Material Obsidian = new Material("Obsidian", [Water,Lava]);
 
-        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
+
+
+
+
+
+
+        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud, Sun, Ice };
 
         public static Material Combine(Material[] inputMaterials)
         {
