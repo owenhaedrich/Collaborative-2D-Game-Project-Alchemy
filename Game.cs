@@ -182,6 +182,46 @@ public class Game
             {
                 interactable.homePosition = cauldronPosition;
             }
+
+            // Interactables don't overlap, push them apart if they do
+            foreach (Interactable otherInteractable in interactables)
+            {
+                if (interactable != otherInteractable)
+                {
+                    if (Vector2.Distance(interactable.position + interactableSize / 2, otherInteractable.position + interactableSize / 2) < 50)
+                    {
+                        Vector2 direction = interactable.position - otherInteractable.position;
+                        if (direction == Vector2.Zero)
+                        {
+                            interactable.position += Vector2.One;
+                        }
+                        else
+                        {
+                            interactable.position += Vector2.Normalize(direction) * 1.1f;
+                        }                        
+                        Console.WriteLine(direction);
+                    }
+                }
+            }
+
+            // Interactables don't go off screen, push them back if they do
+            if (interactable.position.X < 0)
+            {
+                interactable.position.X = 0;
+            }
+            if (interactable.position.X > Window.Width - interactableSize.X)
+            {
+                interactable.position.X = Window.Width - interactableSize.X;
+            }
+            if (interactable.position.Y < 0)
+            {
+                interactable.position.Y = 0;
+            }
+            if (interactable.position.Y > Window.Height - interactableSize.Y)
+            {
+                interactable.position.Y = Window.Height - interactableSize.Y;
+            }
+
         }
     }
 
