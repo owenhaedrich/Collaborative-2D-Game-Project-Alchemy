@@ -9,6 +9,7 @@ namespace Collaborative_2D_Game_Project
     {
         public Vector2 position;
         public Texture2D texture;
+        public Interactable? item;
 
         public ItemHolder(Vector2 position)
         {
@@ -19,6 +20,10 @@ namespace Collaborative_2D_Game_Project
         {
             Graphics.Draw(texture, position);
             Draw.FillColor = Color.Black;
+            if (item is not null)
+            {
+                Draw.FillColor = Color.Red;
+            }
             Draw.Rectangle(position, Vector2.One * 10);
         }
     }

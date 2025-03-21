@@ -28,12 +28,13 @@ public class Game
     // Cauldron
     Vector2 cauldronPosition = new Vector2(400, 300);
     float cauldronRadius = 50;
+    Material[] cauldronMaterials = new Material[4];
 
     // Physics
     Vector2 gravity = Vector2.UnitY * 10;
 
     // Game Objects
-    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
+    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
 
     public void Setup()
@@ -86,13 +87,24 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
+        MoveInteractables();
+        ManageItemHolders();
+        ManageCauldron();
+    }
+
+    public void ManageItemHolders()
+    {
         foreach (ItemHolder itemHolder in shelves)
         {
+            if (itemHolder.item is not null)
+            {
+                if (itemHolder.item.homePosition != itemHolder.position)
+                {
+                    itemHolder.item = null;
+                }
+            }
             itemHolder.Render();
         }
-
-        MoveInteractables();
-        ManageCauldron();
     }
 
     public void ManageCauldron()
@@ -132,7 +144,7 @@ public class Game
                 if (interactable.homePosition != Vector2.NegativeInfinity)
                 {
                     float distanceToHome = Vector2.Distance(interactable.position + interactableSize / 2, interactable.homePosition);
-                    if (distanceToHome > 10)
+                    if (distanceToHome > 3)
                     {
                         float newX = float.Lerp(interactable.position.X, interactable.homePosition.X - interactableSize.X / 2, 0.03f);
                         float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * 2.7f);
@@ -141,15 +153,34 @@ public class Game
                 }
             }
 
-            // Check if the interactable is near an item holder
-            foreach (ItemHolder itemHolder in shelves)
+            // Set item holder to not full when its item gets a new home
+
+
+            // Check if the interactable is near an item holder when released. Add the interactable to the item holder if it is not full.
+            if (Input.IsMouseButtonReleased(MouseInput.Left))
             {
-                Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
-                bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
-                if (closeToItemHolder)
+                ItemHolder closestItemHolder = null;
+                foreach (ItemHolder itemHolder in shelves)
                 {
-                    interactable.homePosition = itemHolder.position;
+                    Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
+                    bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
+                    if (closeToItemHolder && itemHolder.item is null)
+                    {
+                        closestItemHolder = itemHolder;
+                    }
                 }
+
+                if (closestItemHolder != null)
+                {
+                    interactable.homePosition = closestItemHolder.position;
+                    closestItemHolder.item = interactable;
+                }
+            }
+
+            // Check if the interactable is released over the cauldron
+            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left))
+            {
+                interactable.homePosition = cauldronPosition;
             }
         }
     }
