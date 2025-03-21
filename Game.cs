@@ -61,7 +61,7 @@ public class Game
         {
             case gameState.Menu:
                 Menu();
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter) || Input.IsMouseButtonPressed(MouseInput.Left))
                 {
                     state = gameState.Play;
                 }
