@@ -26,6 +26,7 @@ public class Game
     const int shelfHeight = 5;
 
     // Cauldron
+    Vector2 cauldronPourPosition = new Vector2(400, 200);
     Vector2 cauldronPosition = new Vector2(400, 300);
     float cauldronRadius = 50;
     Material[] cauldronMaterials = new Material[4];
@@ -34,7 +35,7 @@ public class Game
     Vector2 gravity = Vector2.UnitY * 10;
 
     // Game Objects
-    Interactable[] interactables = [new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle), new Interactable(Interactable.EmptyBottle)];
+    Interactable[] bottles = [new Interactable(Interactable.EmptyBottle, new Vector2(100,100)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 300)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 500))];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
 
     public void Setup()
@@ -70,7 +71,7 @@ public class Game
                 break;
             case gameState.GameOver:
                 GameOver();
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter) || Input.IsMouseButtonPressed(MouseInput.Left))
                 {
                     state = gameState.Menu;
                 }
@@ -111,11 +112,34 @@ public class Game
     {
         Draw.FillColor = Color.Black;
         Draw.Circle(cauldronPosition, cauldronRadius);
+
+        // Add materials above the cauldron up to the max capacity
+        for (int i = 0; i < cauldronMaterials.Length; i++)
+        {
+            if (cauldronMaterials[i] is null)
+            {
+                foreach (Interactable bottle in bottles)
+                {
+                    if (bottle.homePosition == cauldronPourPosition)
+                    {
+                        cauldronMaterials[i] = bottle.material;
+                        bottle.homePosition = Vector2.NegativeInfinity;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (Input.IsMouseButtonPressed(MouseInput.Left) && Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
+        {
+            Console.WriteLine(Material.Combine(cauldronMaterials).name);
+        }
+
     }
 
     public void MoveInteractables()
     {
-        foreach (Interactable interactable in interactables)
+        foreach (Interactable interactable in bottles)
         {
             Vector2 interactableSize = new Vector2(interactable.texture.Width, interactable.texture.Height);
             bool closeToInteractable = Vector2.Distance(Input.GetMousePosition(), interactable.position + interactableSize / 2) < 50;
@@ -163,7 +187,7 @@ public class Game
                 foreach (ItemHolder itemHolder in shelves)
                 {
                     Vector2 itemHolderSize = new Vector2(itemHolder.texture.Width, itemHolder.texture.Height);
-                    bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 15;
+                    bool closeToItemHolder = Vector2.Distance(interactable.position + interactableSize / 2, itemHolder.position + itemHolderSize / 2) < 50;
                     if (closeToItemHolder && itemHolder.item is null)
                     {
                         closestItemHolder = itemHolder;
@@ -178,13 +202,13 @@ public class Game
             }
 
             // Check if the interactable is released over the cauldron
-            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left))
+            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left))
             {
-                interactable.homePosition = cauldronPosition;
+                interactable.homePosition = cauldronPourPosition;
             }
 
             // Interactables don't overlap, push them apart if they do
-            foreach (Interactable otherInteractable in interactables)
+            foreach (Interactable otherInteractable in bottles)
             {
                 if (interactable != otherInteractable)
                 {
