@@ -14,9 +14,9 @@ namespace Collaborative_2D_Game_Project
 
         public static Interactable EmptyBottle = new Interactable(Vector2.Zero, Graphics.LoadTexture("../../../assets/graphics/Bottle.png"), null, true);
 
-        public Interactable(Interactable interactable, Material? material = null)
+        public Interactable(Interactable interactable, Vector2 spawnPosition, Material? material = null)
         {
-            position = interactable.position;
+            position = spawnPosition;
             texture = interactable.texture;
             moveable = interactable.moveable;
             if (material is not null)
@@ -50,7 +50,7 @@ namespace Collaborative_2D_Game_Project
             Graphics.Draw(texture, position);
             if (material is not null)
             {
-                Graphics.Draw(material.texture, position);
+                Graphics.Draw(material.texture, position + new Vector2(texture.Width, material.texture.Height)/2);
             }
         }
     }

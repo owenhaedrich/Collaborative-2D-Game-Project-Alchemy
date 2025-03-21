@@ -22,6 +22,7 @@ namespace Collaborative_2D_Game_Project
         public static Material Mud = new Material("Mud", [Water, Earth]);
 
         public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
+        public static Material[] craftableMaterials = { Mud };
 
         public static Material Combine(Material[] inputMaterials)
         {
@@ -46,9 +47,12 @@ namespace Collaborative_2D_Game_Project
         }
 
         // Get the name of the material. This is used to sort the materials alphabetically
-        static string GetMaterialName(Material material)
+        static string GetMaterialName(Material? material)
         {
-            return material.name;
+            if (material is null)
+                return "";
+            else
+                return material.name;
         }
     }
 
