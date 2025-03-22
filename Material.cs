@@ -4,7 +4,7 @@ using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    class Material(string name, Material[] madeFrom, int rarity = 0)
+    public class Material(string name, Material[] madeFrom, int rarity = 0)
     {
         public string name = name;
         public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
@@ -24,12 +24,12 @@ namespace Collaborative_2D_Game_Project
         public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
         public static Material[] craftableMaterials = { Mud };
 
-        public static Material Combine(Material[] inputMaterials)
+        public static Material Combine(Material?[] inputMaterials)
         {
             // Combine the materials to create a new material
 
             // Sort the input materials alphabetically
-            Material[] orderedInputMaterials = inputMaterials.OrderBy(GetMaterialName).ToArray();
+            Material?[] orderedInputMaterials = inputMaterials.OrderBy(GetMaterialName).ToArray();
 
             foreach (Material material in materials)
             {

@@ -3,7 +3,7 @@ using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    class Interactable
+    public class Interactable
     {
         public Vector2 position;
         public Vector2 homePosition = Vector2.NegativeInfinity;
