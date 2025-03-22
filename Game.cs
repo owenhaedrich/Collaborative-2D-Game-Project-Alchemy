@@ -88,9 +88,9 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
+        ManageCauldron();
         MoveInteractables();
         ManageItemHolders();
-        ManageCauldron();
     }
 
     public void ManageItemHolders()
@@ -115,6 +115,7 @@ public class Game
         Draw.FillColor = Color.Blue;
         Draw.Circle(cauldronPourPosition, cauldronRadius);
         Interactable[] bottlesAboveCauldron = new Interactable[4];
+        Interactable[] bottlesInCauldron = new Interactable[4];
 
         // Add materials above the cauldron up to the max capacity
         for (int i = 0; i < bottlesAboveCauldron.Length; i++)
@@ -126,7 +127,11 @@ public class Game
                     if (bottle.homePosition == cauldronPourPosition && !bottlesAboveCauldron.Contains(bottle))
                     {
                         bottlesAboveCauldron[i] = bottle;
-                        Console.WriteLine(i);
+                        break;
+                    }
+                    if (bottle.homePosition == cauldronPosition && !bottlesInCauldron.Contains(bottle))
+                    {
+                        bottlesInCauldron[i] = bottle;
                         break;
                     }
                 }
@@ -135,24 +140,79 @@ public class Game
 
         if (Input.IsMouseButtonPressed(MouseInput.Left) && Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
         {
-            CombineBottles(bottlesAboveCauldron);
+            foreach (Interactable bottle in bottlesAboveCauldron)
+            {
+                if (bottle is not null)
+                {
+                    bottle.homePosition = cauldronPosition;
+                }
+            }
         }
 
+        // Combine bottles in the cauldron once they all move inside
+        bool allInCauldron = true;
+        int freeCount = 0;
+        foreach (Interactable bottle in bottlesInCauldron)
+        {
+            if (bottle is not null)
+            {
+                if (bottle.free)
+                {
+                    freeCount++;
+                }
+                else
+                {
+                    Vector2 bottleSize = new Vector2(bottle.texture.Width, bottle.texture.Height);
+                    if (Vector2.Distance(bottle.position + bottleSize / 2, cauldronPosition) > cauldronRadius)
+                    {
+                        allInCauldron = false;
+                        break;
+                    }
+                }
+                
+            }
+            else
+            {
+                freeCount++;
+            }
+        }
+
+        if (allInCauldron && freeCount < bottlesInCauldron.Length)
+        {
+            Console.WriteLine("Combine Bottles");
+            foreach (Interactable bottle in bottlesInCauldron)
+            {
+                if (bottle is not null)
+                {
+                    bottle.Free();
+                }
+            }
+
+            for (int i = 0; i < bottles.Length; i++)
+            {
+                if (bottles[i].free)
+                {
+                    bottles[i] = CombineBottles(bottlesInCauldron);
+                    Console.WriteLine(i);
+                    break;
+                }
+            }
+        }
     }
 
-    public void CombineBottles(Interactable[] combinationBottles)
+    public Interactable CombineBottles(Interactable?[] combinationBottles)
     {
         Material?[] cauldronMaterials = new Material[4];
         for (int i = 0; i < combinationBottles.Length; i++)
         {
             if (combinationBottles[i] is not null)
             {
-                combinationBottles[i].homePosition = cauldronPosition;
                 cauldronMaterials[i] = combinationBottles[i].material;
             }
         }
 
-        Console.WriteLine(Material.Combine(cauldronMaterials).name);
+        //Console.WriteLine(Material.Combine(cauldronMaterials).name);
+        return new Interactable(Interactable.EmptyBottle, cauldronPosition, Material.Combine(cauldronMaterials));
     }
 
     public void MoveInteractables()

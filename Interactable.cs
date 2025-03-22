@@ -11,6 +11,7 @@ namespace Collaborative_2D_Game_Project
         public Material? material; // The material if the interactable has one
         bool moveable = false; // Whether the interactable can be moved
         public bool moving = false;
+        public bool free = false;
 
         public static Interactable EmptyBottle = new Interactable(Vector2.Zero, Graphics.LoadTexture("../../../assets/graphics/Bottle.png"), null, true);
 
@@ -52,6 +53,13 @@ namespace Collaborative_2D_Game_Project
             {
                 Graphics.Draw(material.texture, position + new Vector2(texture.Width, material.texture.Height)/2);
             }
+        }
+
+        public void Free()
+        {
+            texture = new Texture2D();
+            moveable = false;  
+            free = true;
         }
     }
 }
