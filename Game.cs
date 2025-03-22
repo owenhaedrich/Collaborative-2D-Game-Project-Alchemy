@@ -162,8 +162,7 @@ public class Game
                 }
                 else
                 {
-                    Vector2 bottleSize = new Vector2(bottle.texture.Width, bottle.texture.Height);
-                    if (Vector2.Distance(bottle.position + bottleSize / 2, cauldronPosition) > cauldronRadius)
+                    if (Vector2.Distance(bottle.position + Interactable.bottleSize / 2, cauldronPosition) > cauldronRadius)
                     {
                         allInCauldron = false;
                         break;
@@ -211,8 +210,9 @@ public class Game
             }
         }
 
-        //Console.WriteLine(Material.Combine(cauldronMaterials).name);
-        return new Interactable(Interactable.EmptyBottle, cauldronPosition, Material.Combine(cauldronMaterials));
+        Interactable combinedBottle = new Interactable(Interactable.EmptyBottle, cauldronPosition - Interactable.bottleSize / 2, Material.Combine(cauldronMaterials));
+        combinedBottle.homePosition = cauldronPourPosition;
+        return combinedBottle;
     }
 
     public void MoveInteractables()

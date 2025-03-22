@@ -13,7 +13,10 @@ namespace Collaborative_2D_Game_Project
         public bool moving = false;
         public bool free = false;
 
-        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, Graphics.LoadTexture("../../../assets/graphics/Bottle.png"), null, true);
+        //Bottle Setup
+        static Texture2D bottleTexture = Graphics.LoadTexture("../../../assets/graphics/Bottle.png");
+        public static Vector2 bottleSize = new Vector2(bottleTexture.Width, bottleTexture.Height);
+        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, bottleTexture, null, true);
 
         public Interactable(Interactable interactable, Vector2 spawnPosition, Material? material = null)
         {
