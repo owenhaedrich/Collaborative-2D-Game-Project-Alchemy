@@ -178,7 +178,6 @@ public class Game
 
         if (allInCauldron && freeCount < bottlesInCauldron.Length)
         {
-            Console.WriteLine("Combine Bottles");
             foreach (Interactable bottle in bottlesInCauldron)
             {
                 if (bottle is not null)
@@ -192,7 +191,6 @@ public class Game
                 if (bottles[i].free)
                 {
                     bottles[i] = CombineBottles(bottlesInCauldron);
-                    Console.WriteLine(i);
                     break;
                 }
             }
