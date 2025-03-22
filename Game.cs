@@ -1,5 +1,6 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
+using System.Linq;
 using System.Numerics;
 using Collaborative_2D_Game_Project;
 
@@ -122,9 +123,10 @@ public class Game
             {
                 foreach (Interactable bottle in bottles)
                 {
-                    if (bottle.homePosition == cauldronPourPosition)
+                    if (bottle.homePosition == cauldronPourPosition && !bottlesAboveCauldron.Contains(bottle))
                     {
                         bottlesAboveCauldron[i] = bottle;
+                        Console.WriteLine(i);
                         break;
                     }
                 }
