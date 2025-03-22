@@ -1,5 +1,6 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
+using System.Linq;
 using System.Numerics;
 using Collaborative_2D_Game_Project;
 
@@ -29,7 +30,6 @@ public class Game
     Vector2 cauldronPourPosition = new Vector2(400, 200);
     Vector2 cauldronPosition = new Vector2(400, 300);
     float cauldronRadius = 50;
-    Material[] cauldronMaterials = new Material[4];
 
     // Physics
     Vector2 gravity = Vector2.UnitY * 10;
@@ -88,9 +88,9 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
+        ManageCauldron();
         MoveInteractables();
         ManageItemHolders();
-        ManageCauldron();
     }
 
     public void ManageItemHolders()
@@ -112,18 +112,26 @@ public class Game
     {
         Draw.FillColor = Color.Black;
         Draw.Circle(cauldronPosition, cauldronRadius);
+        Draw.FillColor = Color.Blue;
+        Draw.Circle(cauldronPourPosition, cauldronRadius);
+        Interactable[] bottlesAboveCauldron = new Interactable[4];
+        Interactable[] bottlesInCauldron = new Interactable[4];
 
         // Add materials above the cauldron up to the max capacity
-        for (int i = 0; i < cauldronMaterials.Length; i++)
+        for (int i = 0; i < bottlesAboveCauldron.Length; i++)
         {
-            if (cauldronMaterials[i] is null)
+            if (bottlesAboveCauldron[i] is null)
             {
                 foreach (Interactable bottle in bottles)
                 {
-                    if (bottle.homePosition == cauldronPourPosition)
+                    if (bottle.homePosition == cauldronPourPosition && !bottlesAboveCauldron.Contains(bottle))
                     {
-                        cauldronMaterials[i] = bottle.material;
-                        bottle.homePosition = Vector2.NegativeInfinity;
+                        bottlesAboveCauldron[i] = bottle;
+                        break;
+                    }
+                    if (bottle.homePosition == cauldronPosition && !bottlesInCauldron.Contains(bottle))
+                    {
+                        bottlesInCauldron[i] = bottle;
                         break;
                     }
                 }
@@ -132,9 +140,79 @@ public class Game
 
         if (Input.IsMouseButtonPressed(MouseInput.Left) && Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
         {
-            Console.WriteLine(Material.Combine(cauldronMaterials).name);
+            foreach (Interactable bottle in bottlesAboveCauldron)
+            {
+                if (bottle is not null)
+                {
+                    bottle.homePosition = cauldronPosition;
+                }
+            }
         }
 
+        // Combine bottles in the cauldron once they all move inside
+        bool allInCauldron = true;
+        int freeCount = 0;
+        foreach (Interactable bottle in bottlesInCauldron)
+        {
+            if (bottle is not null)
+            {
+                if (bottle.free)
+                {
+                    freeCount++;
+                }
+                else
+                {
+                    if (Vector2.Distance(bottle.position + Interactable.bottleSize / 2, cauldronPosition) > cauldronRadius)
+                    {
+                        allInCauldron = false;
+                        break;
+                    }
+                }
+                
+            }
+            else
+            {
+                freeCount++;
+            }
+        }
+
+        if (allInCauldron && freeCount < bottlesInCauldron.Length)
+        {
+            Console.WriteLine("Combine Bottles");
+            foreach (Interactable bottle in bottlesInCauldron)
+            {
+                if (bottle is not null)
+                {
+                    bottle.Free();
+                }
+            }
+
+            for (int i = 0; i < bottles.Length; i++)
+            {
+                if (bottles[i].free)
+                {
+                    bottles[i] = CombineBottles(bottlesInCauldron);
+                    Console.WriteLine(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    public Interactable CombineBottles(Interactable?[] combinationBottles)
+    {
+        Material?[] cauldronMaterials = new Material[4];
+        for (int i = 0; i < combinationBottles.Length; i++)
+        {
+            if (combinationBottles[i] is not null)
+            {
+                cauldronMaterials[i] = combinationBottles[i].material;
+            }
+        }
+
+        Interactable combinedBottle = new Interactable(Interactable.EmptyBottle, cauldronPosition - Interactable.bottleSize / 2, Material.Combine(cauldronMaterials));
+        combinedBottle.homePosition = cauldronPourPosition;
+        return combinedBottle;
     }
 
     public void MoveInteractables()
@@ -201,12 +279,12 @@ public class Game
                 }
             }
 
-            // Check if the interactable is released over the cauldron
-            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left))
+            // Check if the interactable is released over the cauldron - ignore if the home position is tha cauldron
+            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.homePosition != cauldronPosition)
             {
                 interactable.homePosition = cauldronPourPosition;
             }
-
+            
             // Interactables don't overlap, push them apart if they do
             foreach (Interactable otherInteractable in bottles)
             {
@@ -223,7 +301,6 @@ public class Game
                         {
                             interactable.position += Vector2.Normalize(direction) * 1.1f;
                         }                        
-                        Console.WriteLine(direction);
                     }
                 }
             }

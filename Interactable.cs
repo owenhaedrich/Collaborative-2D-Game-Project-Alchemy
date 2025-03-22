@@ -3,7 +3,7 @@ using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    class Interactable
+    public class Interactable
     {
         public Vector2 position;
         public Vector2 homePosition = Vector2.NegativeInfinity;
@@ -11,8 +11,12 @@ namespace Collaborative_2D_Game_Project
         public Material? material; // The material if the interactable has one
         bool moveable = false; // Whether the interactable can be moved
         public bool moving = false;
+        public bool free = false;
 
-        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, Graphics.LoadTexture("../../../assets/graphics/Bottle.png"), null, true);
+        //Bottle Setup
+        static Texture2D bottleTexture = Graphics.LoadTexture("../../../assets/graphics/Bottle.png");
+        public static Vector2 bottleSize = new Vector2(bottleTexture.Width, bottleTexture.Height);
+        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, bottleTexture, null, true);
 
         public Interactable(Interactable interactable, Vector2 spawnPosition, Material? material = null)
         {
@@ -52,6 +56,13 @@ namespace Collaborative_2D_Game_Project
             {
                 Graphics.Draw(material.texture, position + new Vector2(texture.Width, material.texture.Height)/2);
             }
+        }
+
+        public void Free()
+        {
+            texture = new Texture2D();
+            moveable = false;  
+            free = true;
         }
     }
 }
