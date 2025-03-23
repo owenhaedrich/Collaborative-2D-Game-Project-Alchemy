@@ -37,21 +37,27 @@ public class Game
     // Game Objects
     Interactable[] bottles = [new Interactable(Interactable.EmptyBottle, new Vector2(100,100)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 300)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 500))];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
-
+    Material[] discoveredMaterials = new Material[Material.materials.Length];
     public void Setup()
     {
         Window.SetSize(800, 600);
 
         // Generate Shelves
-        int i = 0;
+        int shelfPosition = 0;
         for (int x = 0; x < shelfWidth; x++)
         {
             for (int y = 0; y < shelfHeight; y++)
             {
-                shelves[i] = (new ItemHolder(new Vector2(50 + x * 75, 100 + y * 100)));
-                shelves[i + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 100 + y * 100)));
-                i++;
+                shelves[shelfPosition] = (new ItemHolder(new Vector2(50 + x * 75, 100 + y * 100)));
+                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 100 + y * 100)));
+                shelfPosition++;
             }
+        }
+
+        // Initialized discovered materials
+        for (int i = 0; i < Material.basicMaterials.Length; i++)
+        {
+            discoveredMaterials[i] = Material.basicMaterials[i];
         }
     }
 

@@ -22,6 +22,7 @@ namespace Collaborative_2D_Game_Project
         public static Material Mud = new Material("Mud", [Water, Earth]);
 
         public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
+        public static Material[] basicMaterials = { Fire, Water, Earth, Air };
         public static Material[] craftableMaterials = { Mud };
 
         public static Material Combine(Material?[] inputMaterials)
