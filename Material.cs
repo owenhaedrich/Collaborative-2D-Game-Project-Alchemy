@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
-using System.Numerics;
 using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    public class Material(string name, Material[] madeFrom, int rarity = 0)
+    public class Material(string name, Material[] madeFrom, Texture2D texture = new Texture2D(), int rarity = 0)
     {
         public string name = name;
         public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
-        public Texture2D texture = texture;
+        public Texture2D texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
         //MATERIAL TEXTURES
@@ -35,17 +34,42 @@ namespace Collaborative_2D_Game_Project
 
         //Basic Materials
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
-        public static Material Fire = new Material("Fire", []);
-        public static Material Water = new Material("Water", []);
-        public static Material Earth = new Material("Earth", []);
-        public static Material Air = new Material("Air", []);
+        public static Material Fire = new Material("Fire", [], fireTexture);
+        public static Material Blood = new Material("Earth", [], bloodTexture);
+        public static Material BatWing = new Material ("Bat Wing", [], batWingTexture);
+        public static Material Crystal = new Material("Crystal", [], crystalTexture);
+        public static Material Eyeball = new Material("Eyeball", [], eyeballTexture);
+        public static Material Feather = new Material("Feather", [], featherTexture);
+        public static Material FrogLeg = new Material("Frog Leg", [], frogLegTexture);
+        public static Material Ice = new Material("Ice", [], iceTexture);
+        public static Material Ink = new Material("Ink", [], inkTexture);
+        public static Material Iron = new Material("Iron", [], ironTexture);
+        public static Material Moonlight = new Material("Moonlight", [], moonlightTexture);
+        public static Material Mushroom = new Material("Mushroom", [], mushroomTexture);
+        public static Material Paper = new Material("Paper", [], paperTexture);
+        public static Material Rock = new Material("Rock", [], rockTexture);
+        public static Material Salt = new Material("Salt", [], saltTexture);
+        public static Material Snow = new Material("Snow", [], snowTexture);
+        public static Material Sun = new Material("Sun", [], sunTexture);
+        public static Material Water = new Material("Water", [], waterTexture);
+        public static Material Wood = new Material("Wood", [], woodTexture);
+
 
         //Combined Materials
-        public static Material Mud = new Material("Mud", [Water, Earth]);
+        public static Material frogPotion = new Material("Frog Transmorphicator", [FrogLeg, Water]);
+        public static Material healingPotion = new Material("Health Bomb", [Sun, Water]);
+        public static Material spiritWorldPotion = new Material("Enter the Spirit World ahh potion", [Eyeball, Moonlight, Ink, Crystal]);
+        public static Material bloodMoonPotion = new Material("Blood Moon Appearus", [Sun, Water, Moonlight]);
+        public static Material invisPotion = new Material("Temp Invis in the Dark ahh potion", [BatWing, Water, Rock]);
+        public static Material floatyLightPotion = new Material("Floaty Lighty", [Sun, Fire, Paper]);
+        public static Material sightPotion = new Material("Potion of Seeing", [Eyeball, Moonlight, Water]);
+        public static Material barrierPotion = new Material("Magicus Barrius", [Iron, Salt, Rock]);
+        public static Material randomAnimalPotion = new Material("Turns into a Random Animall ahh potion", [Blood, Mushroom, Feather]);
+        public static Material pastPotion = new Material("User replay sounds or conversations from the past ahh potion", [Ink, Paper, Eyeball, Water]);
 
-        public static Material[] materials = { Junk, Fire, Water, Earth, Air, Mud };
-        public static Material[] basicMaterials = { Fire, Water, Earth, Air };
-        public static Material[] craftableMaterials = { Mud };
+
+        public static Material[] materials = { Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Ice, Ink, Iron, Moonlight, Mushroom, Paper, Rock, Salt, Snow, Sun, Water, Wood };
+        public static Material[] craftableMaterials = { frogPotion, healingPotion, spiritWorldPotion, bloodMoonPotion, invisPotion, floatyLightPotion, sightPotion, barrierPotion, randomAnimalPotion, pastPotion };
 
         public static Material Combine(Material?[] inputMaterials)
         {
@@ -76,12 +100,6 @@ namespace Collaborative_2D_Game_Project
                 return "";
             else
                 return material.name;
-        }
-
-        public void Render(Vector2 position)
-        {
-            Vector2 textureSize = new Vector2(texture.Width, texture.Height);
-            Graphics.Draw(texture, position - textureSize/2);
         }
     }
 
