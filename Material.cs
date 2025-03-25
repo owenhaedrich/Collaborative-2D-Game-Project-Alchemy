@@ -19,7 +19,6 @@ namespace Collaborative_2D_Game_Project
         static Texture2D eyeballTexture = Graphics.LoadTexture("../../../assets/materials/eyeball.png");
         static Texture2D featherTexture = Graphics.LoadTexture("../../../assets/materials/feather.png");
         static Texture2D frogLegTexture = Graphics.LoadTexture("../../../assets/materials/frog leg.png");
-        static Texture2D iceTexture = Graphics.LoadTexture("../../../assets/materials/ice.png");
         static Texture2D ironTexture = Graphics.LoadTexture("../../../assets/materials/iron.png");
         static Texture2D moonlightTexture = Graphics.LoadTexture("../../../assets/materials/moonlight.png");
         static Texture2D mushroomTexture = Graphics.LoadTexture("../../../assets/materials/mushroom.png");
@@ -43,7 +42,6 @@ namespace Collaborative_2D_Game_Project
         public static Material Eyeball = new Material("Eyeball", [], eyeballTexture);
         public static Material Feather = new Material("Feather", [], featherTexture);
         public static Material FrogLeg = new Material("Frog Leg", [], frogLegTexture);
-        public static Material Ice = new Material("Ice", [], iceTexture);
         public static Material Iron = new Material("Iron", [], ironTexture);
         public static Material Moonlight = new Material("Moonlight", [], moonlightTexture);
         public static Material Mushroom = new Material("Mushroom", [], mushroomTexture);
@@ -83,7 +81,7 @@ namespace Collaborative_2D_Game_Project
         public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood]);
 
 
-        public static Material[] materials = { Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Ice, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink };
+        public static Material[] materials = { Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink };
         public static Material[] craftableMaterials = { healingPotion, clairvoyancePotion, invisibilityPotion, seeInvisibilityPotion, glowingPotion, shieldPotion, strengthPotion, compLanguagePotion, lovePotion, poisonPotion, enlargingPotion, shrinkingPotion, mindReadingPotion, swimmingPotion, talkWithAnimalsPotion, animalFriendshipPotion, polymorphPotion, wallClimbingPotion, flyingPotion, waterBreathingPotion, speedPotion, jumpingPotion };
 
         public static Material Combine(Material?[] inputMaterials)
