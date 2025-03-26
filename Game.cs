@@ -27,8 +27,8 @@ public class Game
     const int shelfHeight = 5;
 
     // Cauldron
-    Vector2 cauldronPourPosition = new Vector2(400, 200);
-    Vector2 cauldronPosition = new Vector2(400, 300);
+    Vector2 cauldronPourPosition = new Vector2(400, 300);
+    Vector2 cauldronPosition = new Vector2(400, 500);
     float cauldronRadius = 50;
 
     // Physics
@@ -37,6 +37,11 @@ public class Game
     // Game Objects
     Interactable[] bottles = [new Interactable(Interactable.EmptyBottle, new Vector2(100,100)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 300)), new Interactable(Interactable.EmptyBottle, new Vector2(100, 500))];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
+
+    // Backgrounds
+    Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
+    Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
+    Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
 
     public void Setup()
     {
@@ -88,9 +93,14 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
+        Graphics.Draw(gameBackground, 0, 0);
+
+
         ManageCauldron();
         MoveInteractables();
         ManageItemHolders();
+
+        Graphics.Draw(cauldron, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
     }
 
     public void ManageItemHolders()
@@ -110,8 +120,8 @@ public class Game
 
     public void ManageCauldron()
     {
-        Draw.FillColor = Color.Black;
-        Draw.Circle(cauldronPosition, cauldronRadius);
+        //Draw.FillColor = Color.Black;
+        //Draw.Circle(cauldronPosition, cauldronRadius);
         Draw.FillColor = Color.Blue;
         Draw.Circle(cauldronPourPosition, cauldronRadius);
         Interactable[] bottlesAboveCauldron = new Interactable[4];
@@ -247,7 +257,7 @@ public class Game
                     if (distanceToHome > 3)
                     {
                         float newX = float.Lerp(interactable.position.X, interactable.homePosition.X - interactableSize.X / 2, 0.03f);
-                        float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * 2.7f);
+                        float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * 3.9f);
                         interactable.position = new Vector2(newX, newY);
                     }
                 }
