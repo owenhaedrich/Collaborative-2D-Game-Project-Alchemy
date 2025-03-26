@@ -30,7 +30,7 @@ public class Game
     // Game Objects
     Interactable[] bottles = new Interactable[50];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
-    Material[] discoveredMaterials = new Material[Material.materials.Length];
+    Material[] potions = new Material[Material.craftableMaterials.Length];
     
     // Shelves
     const int shelfWidth = 4;
@@ -64,19 +64,13 @@ public class Game
             }
         }
 
-        // Initialized discovered materials
-        for (int i = 0; i < Material.basicMaterials.Length; i++)
-        {
-            discoveredMaterials[i] = Material.basicMaterials[i];
-        }
-
         // Fill Bottle Array with Free Bottles
         Array.Fill(bottles, new Interactable());
 
         // Add bottles of the basic materials to the shelves
-        for (int i = 0; i < Material.basicMaterials.Length; i++)
+        for (int i = 0; i < Material.materials.Length; i++)
         {
-            bottles[i] = new Interactable(Interactable.EmptyBottle, shelves[i].position, Material.basicMaterials[i]);
+            bottles[i] = new Interactable(Interactable.EmptyBottle, shelves[i].position - Interactable.bottleSize/2, Material.materials[i]);
         }
     }
 
@@ -262,7 +256,20 @@ public class Game
             }
         }
 
-        Interactable combinedBottle = new Interactable(Interactable.EmptyBottle, cauldronPosition - Interactable.bottleSize / 2, Material.Combine(cauldronMaterials));
+        Material newMaterial = Material.Combine(cauldronMaterials);
+        if (newMaterial.name != "Junk")
+        {
+            for (int i = 0; i < potions.Length; i++)
+            {
+                if (potions is null)
+                {
+                    potions[i] = newMaterial;
+                }
+            }
+        }
+
+
+        Interactable combinedBottle = new Interactable(Interactable.EmptyBottle, cauldronPosition - Interactable.bottleSize / 2, newMaterial);
         combinedBottle.homePosition = cauldronPourPosition;
         return combinedBottle;
     }
