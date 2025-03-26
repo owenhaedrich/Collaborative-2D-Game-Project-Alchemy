@@ -277,7 +277,6 @@ public class Game
             if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable)
             {
                 interactable.Interact();
-                break;
             }
 
             // Moving interactables move with the mouse
@@ -340,6 +339,7 @@ public class Game
             // Check if the interactable is released over the trash
             if (Vector2.Distance(interactable.position + interactableSize / 2, trashPosition) < trashRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.material == Material.Junk)
             {
+                interactable.homePosition = trashPosition;
                 interactable.Free();
             }
 
