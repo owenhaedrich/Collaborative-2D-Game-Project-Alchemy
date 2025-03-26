@@ -65,7 +65,7 @@ namespace Collaborative_2D_Game_Project
             Graphics.Draw(texture, position);
             if (material is not null)
             {
-                material.Render(position + new Vector2(texture.Width, texture.Height)/2);
+                material.Render(position + new Vector2(texture.Width, texture.Height)/2 - new Vector2(material.texture.Width, material.texture.Height) / 2);
             }
         }
 
