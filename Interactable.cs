@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
@@ -17,7 +18,8 @@ namespace Collaborative_2D_Game_Project
         static Texture2D bottleTexture = Graphics.LoadTexture("../../../assets/graphics/Bottle.png");
         public static Vector2 bottleSize = new Vector2(bottleTexture.Width, bottleTexture.Height);
         public static Interactable EmptyBottle = new Interactable(Vector2.Zero, bottleTexture, null, true);
-
+        
+        //Clone Interactable
         public Interactable(Interactable interactable, Vector2 spawnPosition, Material? material = null)
         {
             position = spawnPosition;
@@ -33,6 +35,14 @@ namespace Collaborative_2D_Game_Project
             }
         }
 
+        //Free Interactable
+        public Interactable()
+        {
+            this.texture = new Texture2D();
+            this.free = true;
+        }
+
+        //Unique Interactable Generator
         Interactable(Vector2 position, Texture2D texture, Material? material = null, bool moveable = false)
         {
             this.position = position;
@@ -41,6 +51,7 @@ namespace Collaborative_2D_Game_Project
             this.moveable = moveable;
         }
 
+        //Player interaction with the interactable
         public void Interact()
         {
             if (moveable)
@@ -54,10 +65,11 @@ namespace Collaborative_2D_Game_Project
             Graphics.Draw(texture, position);
             if (material is not null)
             {
-                Graphics.Draw(material.texture, position + new Vector2(texture.Width, material.texture.Height)/2);
+                material.Render(position + new Vector2(texture.Width, texture.Height)/2 - new Vector2(material.texture.Width, material.texture.Height) / 2);
             }
         }
 
+        // Free the interactable from the game
         public void Free()
         {
             texture = new Texture2D();
