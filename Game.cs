@@ -88,8 +88,6 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
-        //Graphics.Draw(gameBackground);
-
         ManageCauldron();
         MoveInteractables();
         ManageItemHolders();

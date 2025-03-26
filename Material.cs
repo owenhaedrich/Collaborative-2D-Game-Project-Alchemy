@@ -11,13 +11,6 @@ namespace Collaborative_2D_Game_Project
         public Texture2D texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
-        // Game Screens
-        public Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background");
-
-        // Cauldron Textures
-        public Texture2D cauldronAsset = Graphics.LoadTexture("../../../assets/graphics/Cauldron");
-        public Texture2D litCauldronAsset = Graphics.LoadTexture("../../../assets/graphics/CauldronLit");
-
         //MATERIAL TEXTURES
         static Texture2D fireTexture = Graphics.LoadTexture("../../../assets/materials/fire.png");
         static Texture2D bloodTexture = Graphics.LoadTexture("../../../assets/materials/blood.png");
