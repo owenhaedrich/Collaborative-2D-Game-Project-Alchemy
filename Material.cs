@@ -82,24 +82,24 @@ namespace Collaborative_2D_Game_Project
         public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood]);
 
 
-        public static Material[] materials = { Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink };
-        public static Material[] craftableMaterials = { healingPotion, clairvoyancePotion, invisibilityPotion, seeInvisibilityPotion, glowingPotion, shieldPotion, strengthPotion, compLanguagePotion, lovePotion, poisonPotion, enlargingPotion, shrinkingPotion, mindReadingPotion, swimmingPotion, talkWithAnimalsPotion, animalFriendshipPotion, polymorphPotion, wallClimbingPotion, flyingPotion, waterBreathingPotion, speedPotion, jumpingPotion };
+        public static Material[] materials = [ Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink ];
+        public static Material[] potions = [ healingPotion, clairvoyancePotion, invisibilityPotion, seeInvisibilityPotion, glowingPotion, shieldPotion, strengthPotion, compLanguagePotion, lovePotion, poisonPotion, enlargingPotion, shrinkingPotion, mindReadingPotion, swimmingPotion, talkWithAnimalsPotion, animalFriendshipPotion, polymorphPotion, wallClimbingPotion, flyingPotion, waterBreathingPotion, speedPotion, jumpingPotion ];
 
         public static Material Combine(Material?[] inputMaterials)
         {
             // Combine the materials to create a new material
 
             // Sort the input materials alphabetically
-            Material?[] orderedInputMaterials = inputMaterials.OrderBy(GetMaterialName).ToArray();
+            Material?[] orderedInputMaterials = inputMaterials.Where(MaterialIsNotNull).OrderBy(GetMaterialName).ToArray();
 
-            foreach (Material material in materials)
+            foreach (Material potion in potions)
             {
                 // Ensure the made-from materials are sorted alphabetically
-                Material[] orderedMadeFrom = material.madeFrom.OrderBy(GetMaterialName).ToArray();
+                Material[] orderedMadeFrom = potion.madeFrom.OrderBy(GetMaterialName).ToArray();
                 if (orderedMadeFrom.SequenceEqual(orderedInputMaterials))
                 {
                     // The new material is returned
-                    return material;
+                    return potion;
                 }
             }
 
@@ -114,6 +114,11 @@ namespace Collaborative_2D_Game_Project
                 return "";
             else
                 return material.name;
+        }
+
+        static bool MaterialIsNotNull(Material? material)
+        { 
+                return material is not null;
         }
 
         public void Render(Vector2 position)
