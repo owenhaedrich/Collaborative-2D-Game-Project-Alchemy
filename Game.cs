@@ -29,11 +29,12 @@ public class Game
     // Recipe View Variables
     Vector2 recipeStartPosition = new Vector2(100, 50);
     Vector2 recipeOffset = new Vector2(0, 150);
+    Vector2 scrollOffset = Vector2.Zero;
 
     // Game Objects
     Interactable[] bottles = new Interactable[50];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
-    Material[] potions = new Material[Material.potions.Length];
+    Material[] discoveredPotions = new Material[Material.potions.Length];
     
     // Shelves
     const int shelfWidth = 4;
@@ -132,13 +133,14 @@ public class Game
     public void RecipeView()
     {
         Window.ClearBackground(Color.OffWhite);
-        for (int i = 0; i < potions.Length; i++)
+
+        //Handle Scroll
+        scrollOffset += Input.GetMouseWheel();
+
+        for (int i = 0; i < Material.potions.Length; i++)
         {
-            if (potions[i] is not null)
-            {
-                Graphics.Draw(potions[i].texture, recipeStartPosition + i * recipeOffset);
-                Text.Draw(potions[i].name, recipeStartPosition + i * recipeOffset);
-            }
+            Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
+            Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
         }
     }
 
@@ -286,11 +288,11 @@ public class Game
         Console.WriteLine(newMaterial.name);
         if (newMaterial.name != "Junk")
         {
-            for (int i = 0; i < potions.Length; i++)
+            for (int i = 0; i < discoveredPotions.Length; i++)
             {
-                if (potions[i] is null)
+                if (discoveredPotions[i] is null)
                 {
-                    potions[i] = newMaterial;
+                    discoveredPotions[i] = newMaterial;
                     break;
                 }
             }
