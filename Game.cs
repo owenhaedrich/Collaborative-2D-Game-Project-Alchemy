@@ -17,20 +17,24 @@ public class Game
     {
         Menu,
         Play,
+        Recipes,
         GameOver
     }
 
     gameState state = gameState.Menu;
 
-
-
     // Physics
     Vector2 gravity = Vector2.UnitY * 10;
+
+    // Recipe View Variables
+    Vector2 recipeStartPosition = new Vector2(100, 50);
+    Vector2 recipeOffset = new Vector2(0, 150);
+    Vector2 scrollOffset = Vector2.Zero;
 
     // Game Objects
     Interactable[] bottles = new Interactable[50];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
-    Material[] potions = new Material[Material.craftableMaterials.Length];
+    Material[] discoveredPotions = new Material[Material.potions.Length];
     
     // Shelves
     const int shelfWidth = 4;
@@ -56,7 +60,6 @@ public class Game
     public void Setup()
     {
         Window.SetSize(800, 600);
-
         // Generate Shelves
         int shelfPosition = 0;
         for (int x = 0; x < shelfWidth; x++)
@@ -92,6 +95,13 @@ public class Game
                 break;
             case gameState.Play:
                 Play();
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Tab))
+                    state = gameState.Recipes;
+                break;
+            case gameState.Recipes:
+                RecipeView();
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Tab))
+                    state = gameState.Play;
                 break;
             case gameState.GameOver:
                 GameOver();
@@ -114,11 +124,24 @@ public class Game
 
         Graphics.Draw(gameBackground, 0, 0);
 
-
         ManageCauldron();
         ManageInteractables();
         ManageItemHolders();
         Graphics.Draw(cauldron, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
+    }
+
+    public void RecipeView()
+    {
+        Window.ClearBackground(Color.OffWhite);
+
+        //Handle Scroll
+        scrollOffset += Input.GetMouseWheel();
+
+        for (int i = 0; i < Material.potions.Length; i++)
+        {
+            Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
+            Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
+        }
     }
 
     public void ManageItemHolders()
@@ -262,13 +285,15 @@ public class Game
         }
 
         Material newMaterial = Material.Combine(cauldronMaterials);
+        Console.WriteLine(newMaterial.name);
         if (newMaterial.name != "Junk")
         {
-            for (int i = 0; i < potions.Length; i++)
+            for (int i = 0; i < discoveredPotions.Length; i++)
             {
-                if (potions is null)
+                if (discoveredPotions[i] is null)
                 {
-                    potions[i] = newMaterial;
+                    discoveredPotions[i] = newMaterial;
+                    break;
                 }
             }
         }
