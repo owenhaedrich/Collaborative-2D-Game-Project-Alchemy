@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
 using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
@@ -8,7 +9,7 @@ namespace Collaborative_2D_Game_Project
     {
         public string name = name;
         public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
-        public Texture2D texture;
+        public Texture2D texture = texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
         // Ingredient Textures
@@ -32,6 +33,7 @@ namespace Collaborative_2D_Game_Project
         static Texture2D tongueTexture = Graphics.LoadTexture("../../../assets/materials/tongue.png"); 
         static Texture2D dolphinFinTexture = Graphics.LoadTexture("../../../assets/materials/dolphin fin.png"); 
         static Texture2D inkTexture = Graphics.LoadTexture("../../../assets/materials/ink.png");
+
 
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
@@ -81,24 +83,24 @@ namespace Collaborative_2D_Game_Project
         public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood]);
 
 
-        public static Material[] materials = { Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink };
-        public static Material[] craftableMaterials = { healingPotion, clairvoyancePotion, invisibilityPotion, seeInvisibilityPotion, glowingPotion, shieldPotion, strengthPotion, compLanguagePotion, lovePotion, poisonPotion, enlargingPotion, shrinkingPotion, mindReadingPotion, swimmingPotion, talkWithAnimalsPotion, animalFriendshipPotion, polymorphPotion, wallClimbingPotion, flyingPotion, waterBreathingPotion, speedPotion, jumpingPotion };
+        public static Material[] materials = [ Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink ];
+        public static Material[] potions = [ healingPotion, clairvoyancePotion, invisibilityPotion, seeInvisibilityPotion, glowingPotion, shieldPotion, strengthPotion, compLanguagePotion, lovePotion, poisonPotion, enlargingPotion, shrinkingPotion, mindReadingPotion, swimmingPotion, talkWithAnimalsPotion, animalFriendshipPotion, polymorphPotion, wallClimbingPotion, flyingPotion, waterBreathingPotion, speedPotion, jumpingPotion ];
 
         public static Material Combine(Material?[] inputMaterials)
         {
             // Combine the materials to create a new material
 
             // Sort the input materials alphabetically
-            Material?[] orderedInputMaterials = inputMaterials.OrderBy(GetMaterialName).ToArray();
+            Material?[] orderedInputMaterials = inputMaterials.Where(MaterialIsNotNull).OrderBy(GetMaterialName).ToArray();
 
-            foreach (Material material in materials)
+            foreach (Material potion in potions)
             {
                 // Ensure the made-from materials are sorted alphabetically
-                Material[] orderedMadeFrom = material.madeFrom.OrderBy(GetMaterialName).ToArray();
+                Material[] orderedMadeFrom = potion.madeFrom.OrderBy(GetMaterialName).ToArray();
                 if (orderedMadeFrom.SequenceEqual(orderedInputMaterials))
                 {
                     // The new material is returned
-                    return material;
+                    return potion;
                 }
             }
 
@@ -113,6 +115,16 @@ namespace Collaborative_2D_Game_Project
                 return "";
             else
                 return material.name;
+        }
+
+        static bool MaterialIsNotNull(Material? material)
+        { 
+                return material is not null;
+        }
+
+        public void Render(Vector2 position)
+        {
+            Graphics.Draw(texture, position);
         }
     }
 
