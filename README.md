@@ -19,4 +19,6 @@ To play Hocus Combocus, you must grab ingredients off of the shelf and place the
 - Potion Combination assets
 - Bottle Asset
 ### Zach
-- ...
+- potion particle asset
+- potion click effects
+- 
