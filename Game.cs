@@ -245,13 +245,18 @@ public class Game
                 }
             }
 
+            Interactable combination = CombineBottles(bottlesInCauldron);
+
             // Spawn the combination in a free bottle slot
-            for (int i = 0; i < bottles.Length; i++)
+            if (combination.material.name != "Junk")
             {
-                if (bottles[i].free)
+                for (int i = 0; i < bottles.Length; i++)
                 {
-                    bottles[i] = CombineBottles(bottlesInCauldron);
-                    break;
+                    if (bottles[i].free)
+                    {
+                        bottles[i] = combination;
+                        break;
+                    }
                 }
             }
         }
