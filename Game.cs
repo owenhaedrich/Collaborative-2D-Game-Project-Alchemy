@@ -76,7 +76,7 @@ public class Game
         Array.Fill(bottles, new Interactable());
 
         // Add bottles of the basic materials to the shelves
-        for (int i = 0; i < Material.materials.Length; i++)
+        for (int i = 1; i < Material.materials.Length; i++)
         {
             bottles[i] = new Interactable(Interactable.EmptyBottle, shelves[i].position - Interactable.bottleSize/2, Material.materials[i]);
         }

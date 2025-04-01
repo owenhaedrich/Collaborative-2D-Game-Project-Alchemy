@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using MohawkGame2D;
 
@@ -62,10 +63,22 @@ namespace Collaborative_2D_Game_Project
 
         public void Render()
         {
-            Graphics.Draw(texture, position);
+            //Check if the interactable is a potion or a generic material
             if (material is not null)
             {
-                material.Render(position + new Vector2(texture.Width, texture.Height)/2 - new Vector2(material.texture.Width, material.texture.Height) / 2);
+                if (Material.potions.Contains(material))
+                {
+                    material.Render(position + new Vector2(texture.Width, texture.Height) / 2 - new Vector2(material.texture.Width, material.texture.Height) / 2);
+                }
+                else
+                {
+                    Graphics.Draw(texture, position);
+                    material.Render(position + new Vector2(texture.Width, texture.Height) / 2 - new Vector2(material.texture.Width, material.texture.Height) / 2 + Vector2.UnitY * 20);
+                }
+            }
+            else
+            {
+                Graphics.Draw(texture, position);
             }
         }
 
