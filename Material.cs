@@ -34,11 +34,34 @@ namespace Collaborative_2D_Game_Project
         static Texture2D dolphinFinTexture = Graphics.LoadTexture("../../../assets/materials/dolphin fin.png"); 
         static Texture2D inkTexture = Graphics.LoadTexture("../../../assets/materials/ink.png");
 
+        static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/HealingPotion.png");
+        //static Texture2D Cl = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+        //static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/fire.png");
+
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
         public static Material Fire = new Material("Fire", [], fireTexture);
         public static Material Blood = new Material("Earth", [], bloodTexture);
-        public static Material BatWing = new Material ("Bat Wing", [], batWingTexture);
+        public static Material BatWing = new Material("Bat Wing", [], batWingTexture);
         public static Material Crystal = new Material("Crystal", [], crystalTexture);
         public static Material Eyeball = new Material("Eyeball", [], eyeballTexture);
         public static Material Feather = new Material("Feather", [], featherTexture);
@@ -58,7 +81,7 @@ namespace Collaborative_2D_Game_Project
         public static Material Ink = new Material("Ink", [], inkTexture);
 
         // Potion Recipes
-        public static Material healingPotion = new Material("Healing Potion", [Sun, Water, RoseQuartz]);
+        public static Material healingPotion = new Material("Healing Potion", [Sun, Water, RoseQuartz], Healing);
         public static Material clairvoyancePotion = new Material("Clairvoyance Potion", [Eyeball, Moonlight, Crystal]);
         public static Material invisibilityPotion = new Material("Invisibility Potion", [Eyeball, Moonlight, Snow]);
         public static Material seeInvisibilityPotion = new Material("See Invisibility Potion", [Eyeball, Sun, Snow]);
