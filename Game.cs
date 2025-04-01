@@ -33,8 +33,8 @@ public class Game
     Material[] potions = new Material[Material.craftableMaterials.Length];
     
     // Shelves
-    const int shelfWidth = 4;
-    const int shelfHeight = 5;
+    const int shelfWidth = 3;
+    const int shelfHeight = 4;
 
     // Cauldron
     Vector2 cauldronPourPosition = new Vector2(400, 300);
@@ -63,8 +63,8 @@ public class Game
         {
             for (int y = 0; y < shelfHeight; y++)
             {
-                shelves[shelfPosition] = (new ItemHolder(new Vector2(50 + x * 75, 100 + y * 100)));
-                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 100 + y * 100)));
+                shelves[shelfPosition] = (new ItemHolder(new Vector2(75 + x * 75, 125 + y * 100)));
+                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 135 + y * 100)));
                 shelfPosition++;
             }
         }
