@@ -25,13 +25,13 @@ namespace Collaborative_2D_Game_Project
         static Texture2D snowTexture = Graphics.LoadTexture("../../../assets/materials/snow.png");
         static Texture2D sunTexture = Graphics.LoadTexture("../../../assets/materials/sun.png");
         static Texture2D waterTexture = Graphics.LoadTexture("../../../assets/materials/water.png");
-        static Texture2D roseQuartzTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/rose quartz.png"); ---------------------
-        static Texture2D animalFurTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/animal fur.png"); ---------------------
-        static Texture2D clayTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/clay.png"); ---------------------
-        static Texture2D spiderSilkTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/spider silk.png"); ---------------------
-        static Texture2D tongueTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/tongue.png"); ---------------------
-        static Texture2D dolphinFinTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/dolphin fin.png"); ---------------------
-        static Texture2D inkTexture = new Texture2D(); //Graphics.LoadTexture("../../../assets/materials/ink.png"); ---------------------
+        static Texture2D roseQuartzTexture = Graphics.LoadTexture("../../../assets/materials/rose quartz.png"); 
+        static Texture2D animalFurTexture = Graphics.LoadTexture("../../../assets/materials/animal fur.png");
+        static Texture2D clayTexture = Graphics.LoadTexture("../../../assets/materials/clay.png"); 
+        static Texture2D spiderSilkTexture = Graphics.LoadTexture("../../../assets/materials/spider silk.png");
+        static Texture2D tongueTexture = Graphics.LoadTexture("../../../assets/materials/tongue.png"); 
+        static Texture2D dolphinFinTexture = Graphics.LoadTexture("../../../assets/materials/dolphin fin.png"); 
+        static Texture2D inkTexture = Graphics.LoadTexture("../../../assets/materials/ink.png");
 
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
