@@ -56,6 +56,8 @@ public class Game
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
     Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
+    Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
+    Texture2D Bubble = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
 
     public void Setup()
     {
@@ -116,6 +118,7 @@ public class Game
     public void Menu()
     {
         Window.ClearBackground(Color.OffWhite);
+        Graphics.Draw(StartScreen, 0, 0);
     }
 
     public void Play()
@@ -168,10 +171,6 @@ public class Game
 
     public void ManageCauldron()
     {
-        //Draw.FillColor = Color.Black;
-        //Draw.Circle(cauldronPosition, cauldronRadius);
-        Draw.FillColor = Color.Blue;
-        Draw.Circle(cauldronPourPosition, cauldronRadius);
         Interactable[] bottlesAboveCauldron = new Interactable[4];
         Interactable[] bottlesInCauldron = new Interactable[4];
 
