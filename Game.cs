@@ -370,7 +370,7 @@ public class Game
             Vector2 interactableSize = new Vector2(interactable.texture.Width, interactable.texture.Height);
             bool closeToInteractable = Vector2.Distance(Input.GetMousePosition(), interactable.position + interactableSize / 2) < 50;
             interactable.Render();
-            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable)
+            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable && interactable.homePosition != cauldronPosition)
             {
                 interactable.Interact();
             }
@@ -417,7 +417,7 @@ public class Game
             {
                 if (interactable != otherInteractable)
                 {
-                    if (Vector2.Distance(interactable.position + interactableSize, otherInteractable.position + interactableSize / 2) < 30)
+                    if (Vector2.Distance(interactable.position - interactableSize / 2, otherInteractable.position - interactableSize / 2) < 30)
                     {
                         Vector2 direction = interactable.position - otherInteractable.position;
                         if (direction == Vector2.Zero)
