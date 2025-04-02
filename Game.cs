@@ -44,6 +44,7 @@ public class Game
     Vector2 cauldronPourPosition = new Vector2(400, 300);
     Vector2 cauldronPosition = new Vector2(400, 500);
     float cauldronRadius = 50;
+    Vector2 finishedPotionPosition = new Vector2(400, -100);
 
     // Respawner
     Vector2 respawnerPosition = new Vector2(400, 100);
@@ -314,7 +315,7 @@ public class Game
 
 
         Interactable combinedBottle = new Interactable(Interactable.EmptyBottle, cauldronPosition - Interactable.bottleSize / 2, newMaterial);
-        combinedBottle.homePosition = cauldronPourPosition;
+        combinedBottle.homePosition = finishedPotionPosition;
         return combinedBottle;
     }
 
@@ -407,22 +408,25 @@ public class Game
                 }
             }
 
-            // Interactables don't go off screen, push them back if they do
-            if (interactable.position.X < 0)
+            // Interactables with potions can fly off screen, push other interactables back to the viewable area
+            if (!Material.potions.Contains(interactable.material))
             {
-                interactable.position.X = 0;
-            }
-            if (interactable.position.X > Window.Width - interactableSize.X)
-            {
-                interactable.position.X = Window.Width - interactableSize.X;
-            }
-            if (interactable.position.Y < 0)
-            {
-                interactable.position.Y = 0;
-            }
-            if (interactable.position.Y > Window.Height - interactableSize.Y)
-            {
-                interactable.position.Y = Window.Height - interactableSize.Y;
+                if (interactable.position.X < 0)
+                {
+                    interactable.position.X = 0;
+                }
+                if (interactable.position.X > Window.Width - interactableSize.X)
+                {
+                    interactable.position.X = Window.Width - interactableSize.X;
+                }
+                if (interactable.position.Y < 0)
+                {
+                    interactable.position.Y = 0;
+                }
+                if (interactable.position.Y > Window.Height - interactableSize.Y)
+                {
+                    interactable.position.Y = Window.Height - interactableSize.Y;
+                }
             }
 
         }
