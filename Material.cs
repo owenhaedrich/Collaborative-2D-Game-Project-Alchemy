@@ -5,12 +5,12 @@ using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    public class Material(string name, Material[] madeFrom, Texture2D texture = new Texture2D(), int rarity = 0)
+    public class Material(string name, Material[] madeFrom, Texture2D texture = new Texture2D(), int ID = -1)
     {
         public string name = name;
-        public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
         public Texture2D texture = texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
+        public int ID = ID;
 
         // Ingredient Textures
         static Texture2D fireTexture = Graphics.LoadTexture("../../../assets/materials/fire.png");
@@ -33,7 +33,6 @@ namespace Collaborative_2D_Game_Project
         static Texture2D tongueTexture = Graphics.LoadTexture("../../../assets/materials/tongue.png"); 
         static Texture2D dolphinFinTexture = Graphics.LoadTexture("../../../assets/materials/dolphin fin.png"); 
         static Texture2D inkTexture = Graphics.LoadTexture("../../../assets/materials/ink.png");
-
 
         static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/HealingPotion.png");
         static Texture2D Clairvoyance = Graphics.LoadTexture("../../../assets/materials/Clairvoyance.png");
@@ -61,26 +60,26 @@ namespace Collaborative_2D_Game_Project
 
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
-        public static Material Fire = new Material("Fire", [], fireTexture);
-        public static Material Blood = new Material("Earth", [], bloodTexture);
-        public static Material BatWing = new Material("Bat Wing", [], batWingTexture);
-        public static Material Crystal = new Material("Crystal", [], crystalTexture);
-        public static Material Eyeball = new Material("Eyeball", [], eyeballTexture);
-        public static Material Feather = new Material("Feather", [], featherTexture);
-        public static Material FrogLeg = new Material("Frog Leg", [], frogLegTexture);
-        public static Material Iron = new Material("Iron", [], ironTexture);
-        public static Material Moonlight = new Material("Moonlight", [], moonlightTexture);
-        public static Material Mushroom = new Material("Mushroom", [], mushroomTexture);
-        public static Material Snow = new Material("Snow", [], snowTexture);
-        public static Material Sun = new Material("Sun", [], sunTexture);
-        public static Material Water = new Material("Water", [], waterTexture);
-        public static Material RoseQuartz = new Material("Rose Quartz", [], roseQuartzTexture);
-        public static Material AnimalFur = new Material("Animal Fur", [], animalFurTexture);
-        public static Material Clay = new Material("Clay", [], clayTexture);
-        public static Material SpiderSilk = new Material("Spider Silk", [], spiderSilkTexture);
-        public static Material Tongue = new Material("Tongue", [], tongueTexture);
-        public static Material DolphinFin = new Material("Dolphin Fin", [], dolphinFinTexture);
-        public static Material Ink = new Material("Ink", [], inkTexture);
+        public static Material Fire = new Material("Fire", [], fireTexture, 0);
+        public static Material Blood = new Material("Earth", [], bloodTexture, 1);
+        public static Material BatWing = new Material("Bat Wing", [], batWingTexture, 2);
+        public static Material Crystal = new Material("Crystal", [], crystalTexture, 3);
+        public static Material Eyeball = new Material("Eyeball", [], eyeballTexture, 4);
+        public static Material Feather = new Material("Feather", [], featherTexture, 5);
+        public static Material FrogLeg = new Material("Frog Leg", [], frogLegTexture, 6);
+        public static Material Iron = new Material("Iron", [], ironTexture, 7);
+        public static Material Mushroom = new Material("Mushroom", [], mushroomTexture, 8);
+        public static Material Snow = new Material("Snow", [], snowTexture, 9);
+        public static Material Sun = new Material("Sun", [], sunTexture, 10);
+        public static Material Water = new Material("Water", [], waterTexture, 11);
+        public static Material RoseQuartz = new Material("Rose Quartz", [], roseQuartzTexture, 12);
+        public static Material Clay = new Material("Clay", [], clayTexture, 13);
+        public static Material SpiderSilk = new Material("Spider Silk", [], spiderSilkTexture, 14);
+        public static Material Tongue = new Material("Tongue", [], tongueTexture, 15);
+        public static Material DolphinFin = new Material("Dolphin Fin", [], dolphinFinTexture, 16);
+        public static Material Ink = new Material("Ink", [], inkTexture, 17);
+        public static Material Moonlight = new Material("Moonlight", [], moonlightTexture, 18);
+        public static Material AnimalFur = new Material("Animal Fur", [], animalFurTexture, 19);
 
         // Potion Recipes
         public static Material healingPotion = new Material("Healing Potion", [Sun, Water, RoseQuartz], Healing);
