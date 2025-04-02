@@ -127,7 +127,14 @@ public class Game
         ManageCauldron();
         ManageInteractables();
         ManageItemHolders();
-        Graphics.Draw(cauldron, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
+        if (Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
+        {
+            Graphics.Draw(cauldronLit, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
+        }
+        else
+        {
+            Graphics.Draw(cauldron, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
+        }
     }
 
     public void RecipeView()
