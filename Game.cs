@@ -55,7 +55,7 @@ public class Game
     Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
     Texture2D IngredientScroll = Graphics.LoadTexture("../../../assets/Screens/IngredientsScroll.png");
     Texture2D RecipeScroll = Graphics.LoadTexture("../../../assets/Screens/RecipeScroll.png");
-    Texture2D Bubble = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
+    Texture2D bubbleSprite = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
 
     public void Setup()
     {
@@ -124,11 +124,11 @@ public class Game
         Window.ClearBackground(Color.OffWhite);
 
         Graphics.Draw(gameBackground, 0, 0);
-        Graphics.Draw(Bubble, cauldronPourPosition - new Vector2(Bubble.Width, Bubble.Height)/2);
 
         ManageCauldron();
         ManageInteractables();
         ManageItemHolders();
+        Graphics.Draw(bubbleSprite, cauldronPourPosition - new Vector2(bubbleSprite.Width, bubbleSprite.Height) / 2);
         if (Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
         {
             Graphics.Draw(cauldronLit, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
