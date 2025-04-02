@@ -2,7 +2,7 @@
 Hocus Combocus is an ingredient combination game, where you mix ingredients together to make potions.
 ---
 ## How to play
-To play Hocus Combocus, you must grab ingredients off of the shelf and place them above the cauldron in the bubble. Once you have your desired ingredients selected, click on the cauldron and await your result. The view the attributes of the ingredients or the potion "recipes", press
+To play Hocus Combocus, you must grab ingredients off of the shelf and place them above the cauldron in the bubble. Once you have your desired ingredients selected, click on the cauldron and await your result. The view the attributes of the ingredients or the potion "recipes", press the [tab] button
 ---
 ## Team contributions
 ### Owen
