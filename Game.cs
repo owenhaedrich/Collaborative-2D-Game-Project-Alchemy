@@ -48,10 +48,6 @@ public class Game
     // Respawner
     Vector2 respawnerPosition = new Vector2(400, 100);
 
-    // Trash
-    Vector2 trashPosition = new Vector2(400, 500);
-    float trashRadius = 50;
-
     // Backgrounds
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
@@ -128,6 +124,7 @@ public class Game
         Window.ClearBackground(Color.OffWhite);
 
         Graphics.Draw(gameBackground, 0, 0);
+        Graphics.Draw(Bubble, cauldronPourPosition - new Vector2(Bubble.Width, Bubble.Height)/2);
 
         ManageCauldron();
         ManageInteractables();
@@ -147,16 +144,16 @@ public class Game
         Window.ClearBackground(Color.OffWhite);
 
         //Handle Scroll
-        scrollOffset += Input.GetMouseWheel();
+        scrollOffset += Input.GetMouseWheel() * 2;
 
         for (int i = 0; i < Material.potions.Length; i++)
         {
             //Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
             //Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
-            Graphics.Draw(IngredientScroll, 0, 0);
-            Graphics.Draw(RecipeScroll, 0, 560);
+            Graphics.Draw(IngredientScroll, scrollOffset);
+            Graphics.Draw(RecipeScroll, scrollOffset + new Vector2(0, 560));
             Draw.FillColor = Color.Black;
-            Draw.Rectangle(0, 550, 800, 10);
+            Draw.Rectangle(scrollOffset + new Vector2(0, 550), new Vector2(800, 10));
         }
     }
 
@@ -388,13 +385,6 @@ public class Game
             if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.homePosition != cauldronPosition)
             {
                 interactable.homePosition = cauldronPourPosition;
-            }
-
-            // Check if the interactable is released over the trash
-            if (Vector2.Distance(interactable.position + interactableSize / 2, trashPosition) < trashRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.material == Material.Junk)
-            {
-                interactable.homePosition = trashPosition;
-                interactable.Free();
             }
 
             // Interactables don't overlap, push them apart if they do
