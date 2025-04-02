@@ -372,7 +372,7 @@ public class Game
             Vector2 interactableSize = new Vector2(interactable.texture.Width, interactable.texture.Height);
             bool closeToInteractable = Vector2.Distance(Input.GetMousePosition(), interactable.position + interactableSize / 2) < 50;
             interactable.Render();
-            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable && interactable.homePosition != cauldronPosition)
+            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable && interactable.homePosition != cauldronPosition && interactable.homePosition != finishedPotionPosition)
             {
                 interactable.Interact();
             }
