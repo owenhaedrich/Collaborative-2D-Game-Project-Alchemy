@@ -11,21 +11,19 @@ namespace Collaborative_2D_Game_Project
         public Vector2 homePosition = Vector2.NegativeInfinity;
         public Texture2D texture; // The texture of the interactable
         public Material? material; // The material if the interactable has one
-        bool moveable = false; // Whether the interactable can be moved
         public bool moving = false;
         public bool free = false;
 
         //Bottle Setup
         static Texture2D bottleTexture = Graphics.LoadTexture("../../../assets/graphics/Bottle.png");
         public static Vector2 bottleSize = new Vector2(bottleTexture.Width, bottleTexture.Height);
-        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, bottleTexture, null, true);
+        public static Interactable EmptyBottle = new Interactable(Vector2.Zero, bottleTexture, null);
         
         //Clone Interactable
         public Interactable(Interactable interactable, Vector2 spawnPosition, Material? material = null)
         {
             position = spawnPosition;
             texture = interactable.texture;
-            moveable = interactable.moveable;
             if (material is not null)
             {
                 this.material = material;
@@ -44,21 +42,17 @@ namespace Collaborative_2D_Game_Project
         }
 
         //Unique Interactable Generator
-        Interactable(Vector2 position, Texture2D texture, Material? material = null, bool moveable = false)
+        Interactable(Vector2 position, Texture2D texture, Material? material = null)
         {
             this.position = position;
             this.texture = texture;
             this.material = material;
-            this.moveable = moveable;
         }
 
         //Player interaction with the interactable
         public void Interact()
         {
-            if (moveable)
-            {
-                moving = true;
-            }
+            moving = true;
         }
 
         public void Render()
@@ -86,7 +80,6 @@ namespace Collaborative_2D_Game_Project
         public void Free()
         {
             texture = new Texture2D();
-            moveable = false;  
             free = true;
         }
     }
