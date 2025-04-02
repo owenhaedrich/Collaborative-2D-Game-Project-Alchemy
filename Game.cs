@@ -35,6 +35,7 @@ public class Game
     Interactable[] bottles = new Interactable[50];
     ItemHolder[] shelves = new ItemHolder[shelfWidth * shelfHeight * 2];
     Material[] discoveredPotions = new Material[Material.potions.Length];
+    Vector2 speedToHome = new Vector2(1f, 1.9f);
     
     // Shelves
     const int shelfWidth = 3;
@@ -47,7 +48,7 @@ public class Game
     Vector2 finishedPotionPosition = new Vector2(400, -100);
 
     // Respawner
-    Vector2 respawnerPosition = new Vector2(400, 100);
+    Vector2 respawnerPosition = new Vector2(-300, 100);
 
     // Backgrounds
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
@@ -68,7 +69,7 @@ public class Game
             for (int y = 0; y < shelfHeight; y++)
             {
                 shelves[shelfPosition] = (new ItemHolder(new Vector2(75 + x * 75, 125 + y * 100)));
-                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 135 + y * 100)));
+                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(580 + x * 75, 135 + y * 100)));
                 shelfPosition++;
             }
         }
@@ -280,7 +281,9 @@ public class Game
                 {
                     if (bottles[i].free)
                     {
-                        bottles[i] = new Interactable(Interactable.EmptyBottle, respawnerPosition - Interactable.bottleSize/2, consumedMaterial);
+                        Interactable newBottle = new Interactable(Interactable.EmptyBottle, respawnerPosition - Interactable.bottleSize / 2, consumedMaterial);
+                        newBottle.homePosition = shelves[i].position;
+                        bottles[i] = newBottle;
                         break;
                     }
                 }
@@ -351,8 +354,8 @@ public class Game
                     float distanceToHome = Vector2.Distance(interactable.position + interactableSize / 2, interactable.homePosition);
                     if (distanceToHome > 3)
                     {
-                        float newX = float.Lerp(interactable.position.X, interactable.homePosition.X - interactableSize.X / 2, 0.03f);
-                        float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * 3.9f);
+                        float newX = float.Lerp(interactable.position.X, interactable.homePosition.X - interactableSize.X / 2, speedToHome.X/100);
+                        float newY = float.Lerp(interactable.position.Y, interactable.homePosition.Y - interactableSize.Y / 2, 1/distanceToHome * speedToHome.Y);
                         interactable.position = new Vector2(newX, newY);
                     }
                 }

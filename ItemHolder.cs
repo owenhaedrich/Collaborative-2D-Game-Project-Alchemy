@@ -24,7 +24,6 @@ namespace Collaborative_2D_Game_Project
             {
                 Draw.FillColor = Color.Red;
             }
-            Draw.Rectangle(position, Vector2.One * 10);
         }
     }
 }
