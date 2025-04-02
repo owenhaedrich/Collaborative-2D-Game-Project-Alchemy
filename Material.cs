@@ -56,7 +56,7 @@ namespace Collaborative_2D_Game_Project
         static Texture2D WaterBreath = Graphics.LoadTexture("../../../assets/materials/WaterBreath.png");
         static Texture2D Speed = Graphics.LoadTexture("../../../assets/materials/Speed.png");
         static Texture2D Jumping = Graphics.LoadTexture("../../../assets/materials/Jumping.png");
-        static Texture2D InvisInk = Graphics.LoadTexture("../../../assets/materials/InvisibleInk.png");
+        //static Texture2D InvisInk = Graphics.LoadTexture("../../../assets/materials/InvisibleInk.png");
 
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
@@ -102,9 +102,9 @@ namespace Collaborative_2D_Game_Project
         public static Material wallClimbingPotion = new Material("Wall Climbing Potion", [SpiderSilk, Blood], WallClimb);
         public static Material flyingPotion = new Material("Flying Potion", [BatWing, Feather, Blood], Flying);
         public static Material waterBreathingPotion = new Material("Water Breathing Potion", [Water, DolphinFin, Blood], WaterBreath);
-        public static Material speedPotion = new Material("Speed Potion", [FrogLeg, Feather, Blood], Speed);
+        public static Material speedPotion = new Material("Speed Potion", [FrogLeg, BatWing, Blood], Speed);
         public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood], Jumping);
-        public static Material invisibleink = new Material("Invisible Ink", [Eyeball, Moonlight, Ink, Crystal], InvisInk);
+        //public static Material invisibleink = new Material("Invisible Ink", [Eyeball, Moonlight, Ink, Crystal], InvisInk);
 
 
         public static Material[] materials = [ Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink ];

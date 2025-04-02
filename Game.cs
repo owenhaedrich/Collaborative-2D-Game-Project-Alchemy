@@ -57,6 +57,8 @@ public class Game
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
     Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
     Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
+    Texture2D IngredientScroll = Graphics.LoadTexture("../../../assets/Screens/IngredientsScroll.png");
+    Texture2D RecipeScroll = Graphics.LoadTexture("../../../assets/Screens/RecipeScroll.png");
     Texture2D Bubble = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
 
     public void Setup()
@@ -149,8 +151,12 @@ public class Game
 
         for (int i = 0; i < Material.potions.Length; i++)
         {
-            Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
-            Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
+            //Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
+            //Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
+            Graphics.Draw(IngredientScroll, 0, 0);
+            Graphics.Draw(RecipeScroll, 0, 560);
+            Draw.FillColor = Color.Black;
+            Draw.Rectangle(0, 550, 800, 10);
         }
     }
 
