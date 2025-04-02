@@ -58,30 +58,6 @@ namespace Collaborative_2D_Game_Project
         static Texture2D Jumping = Graphics.LoadTexture("../../../assets/materials/Jumping.png");
         //static Texture2D InvisInk = Graphics.LoadTexture("../../../assets/materials/InvisibleInk.png");
 
-        static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/HealingPotion.png");
-        static Texture2D Clairvoyance = Graphics.LoadTexture("../../../assets/materials/Clairvoyance.png");
-        static Texture2D Invisibility = Graphics.LoadTexture("../../../assets/materials/Invisibility.png");
-        static Texture2D SeeInvis = Graphics.LoadTexture("../../../assets/materials/SeeInvis.png");
-        static Texture2D Glowing = Graphics.LoadTexture("../../../assets/materials/Glowing.png");
-        static Texture2D Shield = Graphics.LoadTexture("../../../assets/materials/Shield.png");
-        static Texture2D Strength = Graphics.LoadTexture("../../../assets/materials/Strength.png");
-        static Texture2D CompLang = Graphics.LoadTexture("../../../assets/materials/CompLang.png");
-        static Texture2D Love = Graphics.LoadTexture("../../../assets/materials/Love.png");
-        static Texture2D Poison = Graphics.LoadTexture("../../../assets/materials/Poison.png");
-        static Texture2D Enlarging = Graphics.LoadTexture("../../../assets/materials/Enlarging.png");
-        static Texture2D Shrinking = Graphics.LoadTexture("../../../assets/materials/Shrinking.png");
-        static Texture2D MindRead = Graphics.LoadTexture("../../../assets/materials/MindRead.png");
-        static Texture2D Swimming = Graphics.LoadTexture("../../../assets/materials/Swimming.png");
-        static Texture2D AnimalTalk = Graphics.LoadTexture("../../../assets/materials/SpeakAnimal.png");
-        static Texture2D AnimalFriend = Graphics.LoadTexture("../../../assets/materials/AnimalFriend.png");
-        static Texture2D Polymorph = Graphics.LoadTexture("../../../assets/materials/Polymorph.png");
-        static Texture2D WallClimb = Graphics.LoadTexture("../../../assets/materials/WallClimb.png");
-        static Texture2D Flying = Graphics.LoadTexture("../../../assets/materials/Flying.png");
-        static Texture2D WaterBreath = Graphics.LoadTexture("../../../assets/materials/WaterBreath.png");
-        static Texture2D Speed = Graphics.LoadTexture("../../../assets/materials/Speed.png");
-        static Texture2D Jumping = Graphics.LoadTexture("../../../assets/materials/Jumping.png");
-        //static Texture2D InvisInk = Graphics.LoadTexture("../../../assets/materials/InvisibleInk.png");
-
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
         public static Material Fire = new Material("Fire", [], fireTexture, 0);
