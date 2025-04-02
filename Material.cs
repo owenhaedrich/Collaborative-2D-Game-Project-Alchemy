@@ -5,10 +5,9 @@ using MohawkGame2D;
 
 namespace Collaborative_2D_Game_Project
 {
-    public class Material(string name, Material[] madeFrom, Texture2D texture = new Texture2D(), int rarity = 0)
+    public class Material(string name, Material[] madeFrom, Texture2D texture = new Texture2D())
     {
         public string name = name;
-        public int rarity = rarity; // Rarity of the material, 0 being the most common and 5 being the rarest
         public Texture2D texture = texture;
         public Material[] madeFrom = madeFrom; // The materials required to create this material
 
