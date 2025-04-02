@@ -37,8 +37,8 @@ public class Game
     Material[] discoveredPotions = new Material[Material.potions.Length];
     
     // Shelves
-    const int shelfWidth = 4;
-    const int shelfHeight = 5;
+    const int shelfWidth = 3;
+    const int shelfHeight = 4;
 
     // Cauldron
     Vector2 cauldronPourPosition = new Vector2(400, 300);
@@ -56,6 +56,10 @@ public class Game
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
     Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
+    Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
+    Texture2D IngredientScroll = Graphics.LoadTexture("../../../assets/Screens/IngredientsScroll.png");
+    Texture2D RecipeScroll = Graphics.LoadTexture("../../../assets/Screens/RecipeScroll.png");
+    Texture2D Bubble = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
 
     public void Setup()
     {
@@ -66,8 +70,8 @@ public class Game
         {
             for (int y = 0; y < shelfHeight; y++)
             {
-                shelves[shelfPosition] = (new ItemHolder(new Vector2(50 + x * 75, 100 + y * 100)));
-                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 100 + y * 100)));
+                shelves[shelfPosition] = (new ItemHolder(new Vector2(75 + x * 75, 125 + y * 100)));
+                shelves[shelfPosition + shelves.Length/2] = (new ItemHolder(new Vector2(510 + x * 75, 135 + y * 100)));
                 shelfPosition++;
             }
         }
@@ -76,7 +80,7 @@ public class Game
         Array.Fill(bottles, new Interactable());
 
         // Add bottles of the basic materials to the shelves
-        for (int i = 0; i < Material.materials.Length; i++)
+        for (int i = 1; i < Material.materials.Length; i++)
         {
             bottles[i] = new Interactable(Interactable.EmptyBottle, shelves[i].position - Interactable.bottleSize/2, Material.materials[i]);
         }
@@ -116,6 +120,7 @@ public class Game
     public void Menu()
     {
         Window.ClearBackground(Color.OffWhite);
+        Graphics.Draw(StartScreen, 0, 0);
     }
 
     public void Play()
@@ -128,6 +133,7 @@ public class Game
         ManageInteractables();
         ManageItemHolders();
         Graphics.Draw(cauldron, cauldronPosition - new Vector2(cauldron.Width, cauldron.Height) / 2);
+        Graphics.Draw(Bubble, cauldronPourPosition - new Vector2(Bubble.Width, Bubble.Height) / 2);
     }
 
     public void RecipeView()
@@ -139,8 +145,12 @@ public class Game
 
         for (int i = 0; i < Material.potions.Length; i++)
         {
-            Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
-            Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
+            //Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
+            //Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
+            Graphics.Draw(IngredientScroll, 0, 0);
+            Graphics.Draw(RecipeScroll, 0, 560);
+            Draw.FillColor = Color.Black;
+            Draw.Rectangle(0, 550, 800, 10);
         }
     }
 
@@ -161,10 +171,6 @@ public class Game
 
     public void ManageCauldron()
     {
-        //Draw.FillColor = Color.Black;
-        //Draw.Circle(cauldronPosition, cauldronRadius);
-        Draw.FillColor = Color.Blue;
-        Draw.Circle(cauldronPourPosition, cauldronRadius);
         Interactable[] bottlesAboveCauldron = new Interactable[4];
         Interactable[] bottlesInCauldron = new Interactable[4];
 

@@ -35,11 +35,35 @@ namespace Collaborative_2D_Game_Project
         static Texture2D inkTexture = Graphics.LoadTexture("../../../assets/materials/ink.png");
 
 
+        static Texture2D Healing = Graphics.LoadTexture("../../../assets/materials/HealingPotion.png");
+        static Texture2D Clairvoyance = Graphics.LoadTexture("../../../assets/materials/Clairvoyance.png");
+        static Texture2D Invisibility = Graphics.LoadTexture("../../../assets/materials/Invisibility.png");
+        static Texture2D SeeInvis = Graphics.LoadTexture("../../../assets/materials/SeeInvis.png");
+        static Texture2D Glowing = Graphics.LoadTexture("../../../assets/materials/Glowing.png");
+        static Texture2D Shield = Graphics.LoadTexture("../../../assets/materials/Shield.png");
+        static Texture2D Strength = Graphics.LoadTexture("../../../assets/materials/Strength.png");
+        static Texture2D CompLang = Graphics.LoadTexture("../../../assets/materials/CompLang.png");
+        static Texture2D Love = Graphics.LoadTexture("../../../assets/materials/Love.png");
+        static Texture2D Poison = Graphics.LoadTexture("../../../assets/materials/Poison.png");
+        static Texture2D Enlarging = Graphics.LoadTexture("../../../assets/materials/Enlarging.png");
+        static Texture2D Shrinking = Graphics.LoadTexture("../../../assets/materials/Shrinking.png");
+        static Texture2D MindRead = Graphics.LoadTexture("../../../assets/materials/MindRead.png");
+        static Texture2D Swimming = Graphics.LoadTexture("../../../assets/materials/Swimming.png");
+        static Texture2D AnimalTalk = Graphics.LoadTexture("../../../assets/materials/SpeakAnimal.png");
+        static Texture2D AnimalFriend = Graphics.LoadTexture("../../../assets/materials/AnimalFriend.png");
+        static Texture2D Polymorph = Graphics.LoadTexture("../../../assets/materials/Polymorph.png");
+        static Texture2D WallClimb = Graphics.LoadTexture("../../../assets/materials/WallClimb.png");
+        static Texture2D Flying = Graphics.LoadTexture("../../../assets/materials/Flying.png");
+        static Texture2D WaterBreath = Graphics.LoadTexture("../../../assets/materials/WaterBreath.png");
+        static Texture2D Speed = Graphics.LoadTexture("../../../assets/materials/Speed.png");
+        static Texture2D Jumping = Graphics.LoadTexture("../../../assets/materials/Jumping.png");
+        //static Texture2D InvisInk = Graphics.LoadTexture("../../../assets/materials/InvisibleInk.png");
+
         // Ingredients
         public static Material Junk = new Material("Junk", []); // Junk is made from unsuccessful combinations
         public static Material Fire = new Material("Fire", [], fireTexture);
         public static Material Blood = new Material("Earth", [], bloodTexture);
-        public static Material BatWing = new Material ("Bat Wing", [], batWingTexture);
+        public static Material BatWing = new Material("Bat Wing", [], batWingTexture);
         public static Material Crystal = new Material("Crystal", [], crystalTexture);
         public static Material Eyeball = new Material("Eyeball", [], eyeballTexture);
         public static Material Feather = new Material("Feather", [], featherTexture);
@@ -59,28 +83,29 @@ namespace Collaborative_2D_Game_Project
         public static Material Ink = new Material("Ink", [], inkTexture);
 
         // Potion Recipes
-        public static Material healingPotion = new Material("Healing Potion", [Sun, Water, RoseQuartz]);
-        public static Material clairvoyancePotion = new Material("Clairvoyance Potion", [Eyeball, Moonlight, Crystal]);
-        public static Material invisibilityPotion = new Material("Invisibility Potion", [Eyeball, Moonlight, Snow]);
-        public static Material seeInvisibilityPotion = new Material("See Invisibility Potion", [Eyeball, Sun, Snow]);
-        public static Material glowingPotion = new Material("Glowing Potion", [Eyeball, Fire, Sun]);
-        public static Material shieldPotion = new Material("Shield Potion", [Iron, Crystal]);
-        public static Material strengthPotion = new Material("Strength Potion", [Fire, Blood, Iron]);
-        public static Material compLanguagePotion = new Material("Comprehend Language Potion", [Tongue, Ink]);
-        public static Material lovePotion = new Material("Love Potion", [RoseQuartz, Blood]);
-        public static Material poisonPotion = new Material("Poison Potion", [Mushroom, Blood]);
-        public static Material enlargingPotion = new Material("Enlarging Potion", [Mushroom, Sun, Clay]);
-        public static Material shrinkingPotion = new Material("Shrinking Potion", [Mushroom, Moonlight, Clay]);
-        public static Material mindReadingPotion = new Material("Mind Reading Potion", [Blood, Eyeball, Ink]);
-        public static Material swimmingPotion = new Material("Swimming Potion", [DolphinFin, FrogLeg, Blood]);
-        public static Material talkWithAnimalsPotion = new Material("Talk With Animals Potion", [AnimalFur, Tongue]);
-        public static Material animalFriendshipPotion = new Material("Animal Friendship Potion", [AnimalFur, RoseQuartz]);
-        public static Material polymorphPotion = new Material("Polymorph Potion", [Blood, AnimalFur, Clay]);
-        public static Material wallClimbingPotion = new Material("Wall Climbing Potion", [SpiderSilk, Blood]);
-        public static Material flyingPotion = new Material("Flying Potion", [BatWing, Feather, Blood]);
-        public static Material waterBreathingPotion = new Material("Water Breathing Potion", [Water, DolphinFin, Blood]);
-        public static Material speedPotion = new Material("Speed Potion", [FrogLeg, Feather, Blood]);
-        public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood]);
+        public static Material healingPotion = new Material("Healing Potion", [Sun, Water, RoseQuartz], Healing);
+        public static Material clairvoyancePotion = new Material("Clairvoyance Potion", [Eyeball, Moonlight, Crystal], Clairvoyance);
+        public static Material invisibilityPotion = new Material("Invisibility Potion", [Eyeball, Moonlight, Snow], Invisibility);
+        public static Material seeInvisibilityPotion = new Material("See Invisibility Potion", [Eyeball, Sun, Snow], SeeInvis);
+        public static Material glowingPotion = new Material("Glowing Potion", [Eyeball, Fire, Sun], Glowing);
+        public static Material shieldPotion = new Material("Shield Potion", [Iron, Crystal], Shield);
+        public static Material strengthPotion = new Material("Strength Potion", [Fire, Blood, Iron], Strength);
+        public static Material compLanguagePotion = new Material("Comprehend Language Potion", [Tongue, Ink], CompLang);
+        public static Material lovePotion = new Material("Love Potion", [RoseQuartz, Blood], Love);
+        public static Material poisonPotion = new Material("Poison Potion", [Mushroom, Blood], Poison);
+        public static Material enlargingPotion = new Material("Enlarging Potion", [Mushroom, Sun, Clay], Enlarging);
+        public static Material shrinkingPotion = new Material("Shrinking Potion", [Mushroom, Moonlight, Clay], Shrinking);
+        public static Material mindReadingPotion = new Material("Mind Reading Potion", [Blood, Eyeball, Ink], MindRead);
+        public static Material swimmingPotion = new Material("Swimming Potion", [DolphinFin, FrogLeg, Blood], Swimming);
+        public static Material talkWithAnimalsPotion = new Material("Talk With Animals Potion", [AnimalFur, Tongue], AnimalTalk);
+        public static Material animalFriendshipPotion = new Material("Animal Friendship Potion", [AnimalFur, RoseQuartz], AnimalFriend);
+        public static Material polymorphPotion = new Material("Polymorph Potion", [Blood, AnimalFur, Clay], Polymorph);
+        public static Material wallClimbingPotion = new Material("Wall Climbing Potion", [SpiderSilk, Blood], WallClimb);
+        public static Material flyingPotion = new Material("Flying Potion", [BatWing, Feather, Blood], Flying);
+        public static Material waterBreathingPotion = new Material("Water Breathing Potion", [Water, DolphinFin, Blood], WaterBreath);
+        public static Material speedPotion = new Material("Speed Potion", [FrogLeg, BatWing, Blood], Speed);
+        public static Material jumpingPotion = new Material("Jumping Potion", [FrogLeg, Blood], Jumping);
+        //public static Material invisibleink = new Material("Invisible Ink", [Eyeball, Moonlight, Ink, Crystal], InvisInk);
 
 
         public static Material[] materials = [ Junk, Fire, Blood, BatWing, Crystal, Eyeball, Feather, FrogLeg, Iron, Moonlight, Mushroom, Snow, Sun, Water, RoseQuartz, AnimalFur, Clay, SpiderSilk, Tongue, DolphinFin, Ink ];
