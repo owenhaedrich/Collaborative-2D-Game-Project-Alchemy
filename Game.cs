@@ -150,13 +150,15 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
 
-        //Handle Scroll
-        scrollOffset += Input.GetMouseWheel() * 25;
+        //Handle Scroll - you can't move beyond the scroll
+        Vector2 scrollChange = Input.GetMouseWheel() * 25;
+        if ((scrollOffset + scrollChange).Y < 0 && (scrollOffset + scrollChange).Y > -RecipeScroll.Height + 100)
+        {
+            scrollOffset += scrollChange;
+        }
 
         for (int i = 0; i < Material.potions.Length; i++)
         {
-            //Graphics.Draw(Material.potions[i].texture, recipeStartPosition + i * recipeOffset + scrollOffset);
-            //Text.Draw(Material.potions[i].name, recipeStartPosition + i * recipeOffset + scrollOffset);
             Graphics.Draw(IngredientScroll, scrollOffset);
             Graphics.Draw(RecipeScroll, scrollOffset + new Vector2(0, 560));
             Draw.FillColor = Color.Black;
