@@ -13,10 +13,10 @@ To play Hocus Combocus, you must grab ingredients off of the shelf and place the
 - Added Screen changing
 ### Becca
 - Ingredients assets
-- Ingrediants implementation
+- Ingredients implementation
 - Potion descriptions
 - Initial potion combinations
-- initial ingredient list
+- Initial ingredient list
 ### Marcus
 - Background
 - Cauldron Asset
@@ -24,7 +24,7 @@ To play Hocus Combocus, you must grab ingredients off of the shelf and place the
 - Potion Combination assets
 - Bottle Asset
 - Recipe/ingredients scroll assets
-- reworked Potion combinations
+- Reworked Potion combinations
 - Ingredient attributes
 ### Zach
 - potion particle asset
