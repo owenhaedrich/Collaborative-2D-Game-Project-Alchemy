@@ -2,7 +2,9 @@
 using System;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 using Collaborative_2D_Game_Project;
+using Raylib_cs;
 
 // The namespace your code is in.
 namespace MohawkGame2D;
@@ -39,7 +41,10 @@ public class Game
     // Shelves
     const int shelfWidth = 4;
     const int shelfHeight = 5;
+    private const int V = 0;
 
+    // mouse pos
+    int mouseX, mouseY;
     // Cauldron
     Vector2 cauldronPourPosition = new Vector2(400, 300);
     Vector2 cauldronPosition = new Vector2(400, 500);
@@ -56,6 +61,39 @@ public class Game
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
     Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
+
+    // Click Effect
+    public Texture2D F01 = Graphics.LoadTexture("../../../../assets/PotionParticles/000.png");
+    public Texture2D F02 = Graphics.LoadTexture("../../../../assets/PotionParticles/001.png");
+    public Texture2D F03 = Graphics.LoadTexture("../../../../assets/PotionParticles/002.png");
+    public Texture2D F04 = Graphics.LoadTexture("../../../../assets/PotionParticles/003.png");
+    public Texture2D F05 = Graphics.LoadTexture("../../../../assets/PotionParticles/004.png");
+    public Texture2D F06 = Graphics.LoadTexture("../../../../assets/PotionParticles/005.png");
+    public Texture2D F07 = Graphics.LoadTexture("../../../../assets/PotionParticles/006.png");
+    public Texture2D F08 = Graphics.LoadTexture("../../../../assets/PotionParticles/007.png");
+    public Texture2D F09 = Graphics.LoadTexture("../../../../assets/PotionParticles/008.png");
+    public Texture2D F10 = Graphics.LoadTexture("../../../../assets/PotionParticles/009.png");
+    public Texture2D F11 = Graphics.LoadTexture("../../../../assets/PotionParticles/010.png");
+
+    // Corrected array initialization
+   public Texture2D[] frames = { F01, F02, F03, F04, F05, F06, F07, F08, F09, F10, F11 };
+
+    int currentFrame = 0;
+    bool playing = false;
+
+    void sparkle()
+    {
+
+        Graphics.Draw(frames[currentFrame], mouseX, mouseY);
+        currentFrame++;
+
+        if (currentFrame >= frames.Length)
+        {
+            playing = false;
+            currentFrame = 0;
+        }
+    }
+
 
     public void Setup()
     {
@@ -111,6 +149,21 @@ public class Game
                 }
                 break;
         }
+        {
+            if (Input.IsMouseButtonPressed(0 , (MouseInput)MouseButton.Left)) // Detect left click
+            {
+                mouseX = (int)Input.GetMouseX();
+                mouseY = (int)Input.GetMouseY();
+                playing = true;
+                currentFrame = 0;
+            }
+
+            if (playing)
+            {
+                sparkle();
+            }
+        }
+
     }
 
     public void Menu()
