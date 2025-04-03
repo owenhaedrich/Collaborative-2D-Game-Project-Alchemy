@@ -38,8 +38,6 @@ public class Game
     Vector2 catPosition = new Vector2(200, 550);
     Vector2 moonPosition = new Vector2(350, 100);
 
-    // mouse pos
-    int mouseX, mouseY;
     // Cauldron
     Vector2 cauldronPourPosition = new Vector2(400, 300);
     Vector2 cauldronPosition = new Vector2(400, 500);
@@ -59,29 +57,33 @@ public class Game
     Texture2D bubbleSprite = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
 
     // Click Effect
-    public Texture2D F01 = Graphics.LoadTexture("../../../../assets/PotionParticles/000.png");
-    public Texture2D F02 = Graphics.LoadTexture("../../../../assets/PotionParticles/001.png");
-    public Texture2D F03 = Graphics.LoadTexture("../../../../assets/PotionParticles/002.png");
-    public Texture2D F04 = Graphics.LoadTexture("../../../../assets/PotionParticles/003.png");
-    public Texture2D F05 = Graphics.LoadTexture("../../../../assets/PotionParticles/004.png");
-    public Texture2D F06 = Graphics.LoadTexture("../../../../assets/PotionParticles/005.png");
-    public Texture2D F07 = Graphics.LoadTexture("../../../../assets/PotionParticles/006.png");
-    public Texture2D F08 = Graphics.LoadTexture("../../../../assets/PotionParticles/007.png");
-    public Texture2D F09 = Graphics.LoadTexture("../../../../assets/PotionParticles/008.png");
-    public Texture2D F10 = Graphics.LoadTexture("../../../../assets/PotionParticles/009.png");
-    public Texture2D F11 = Graphics.LoadTexture("../../../../assets/PotionParticles/010.png");
+    static public Texture2D F01 = Graphics.LoadTexture("../../../assets/PotionParticles/000.png");
+    static public Texture2D F02 = Graphics.LoadTexture("../../../assets/PotionParticles/001.png");
+    static public Texture2D F03 = Graphics.LoadTexture("../../../assets/PotionParticles/002.png");
+    static public Texture2D F04 = Graphics.LoadTexture("../../../assets/PotionParticles/003.png");
+    static public Texture2D F05 = Graphics.LoadTexture("../../../assets/PotionParticles/004.png");
+    static public Texture2D F06 = Graphics.LoadTexture("../../../assets/PotionParticles/005.png");
+    static public Texture2D F07 = Graphics.LoadTexture("../../../assets/PotionParticles/006.png");
+    static public Texture2D F08 = Graphics.LoadTexture("../../../assets/PotionParticles/007.png");
+    static public Texture2D F09 = Graphics.LoadTexture("../../../assets/PotionParticles/008.png");
+    static public Texture2D F10 = Graphics.LoadTexture("../../../assets/PotionParticles/009.png");
+    static public Texture2D F11 = Graphics.LoadTexture("../../../assets/PotionParticles/010.png");
 
-    // Corrected array initialization
-   public Texture2D[] frames = { F01, F02, F03, F04, F05, F06, F07, F08, F09, F10, F11 };
+    // mouse pos
+    int mouseX, mouseY;
+
+    // Sparkle array
+    static public Texture2D[] frames = { F01, F02, F03, F04, F05, F06, F07, F08, F09, F10, F11 };
 
     int currentFrame = 0;
     bool playing = false;
 
     void sparkle()
     {
-
-        Graphics.Draw(frames[currentFrame], mouseX, mouseY);
+        Graphics.Scale = 0.01f;
+        Graphics.Draw(frames[currentFrame], mouseX - 15, mouseY - 15);
         currentFrame++;
+        Graphics.Scale = 1;
 
         if (currentFrame >= frames.Length)
         {
@@ -137,7 +139,7 @@ public class Game
         {
             case gameState.Menu:
                 Menu();
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter) || Input.IsMouseButtonPressed(MouseInput.Left))
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter) || Input.IsMouseButtonPressed(0, MouseInput.Left))
                 {
                     state = gameState.Play;
                 }
@@ -153,21 +155,19 @@ public class Game
                     state = gameState.Play;
                 break;
         }
-        {
-            if (Input.IsMouseButtonPressed(0 , (MouseInput)MouseButton.Left)) // Detect left click
-            {
-                mouseX = (int)Input.GetMouseX();
-                mouseY = (int)Input.GetMouseY();
-                playing = true;
-                currentFrame = 0;
-            }
 
-            if (playing)
-            {
-                sparkle();
-            }
+        if (Input.IsMouseButtonPressed(0, MouseInput.Left)) // Detect left click
+        {
+            mouseX = (int)Input.GetMouseX();
+            mouseY = (int)Input.GetMouseY();
+            playing = true;
+            currentFrame = 0;
         }
 
+        if (playing)
+        {
+            sparkle();
+        }
     }
 
     public void Menu()
@@ -261,7 +261,7 @@ public class Game
         }
 
         // Combine bottles in the cauldron if the mouse is pressed over the cauldron
-        if (Input.IsMouseButtonPressed(MouseInput.Left) && Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
+        if (Input.IsMouseButtonPressed(0, MouseInput.Left) && Vector2.Distance(Input.GetMousePosition(), cauldronPosition) < cauldronRadius)
         {
             foreach (Interactable bottle in bottlesAboveCauldron)
             {
@@ -424,7 +424,7 @@ public class Game
             Vector2 interactableSize = new Vector2(interactable.texture.Width, interactable.texture.Height);
             bool closeToInteractable = Vector2.Distance(Input.GetMousePosition(), interactable.position + interactableSize / 2) < 50;
             interactable.Render();
-            if (Input.IsMouseButtonPressed(MouseInput.Left) && closeToInteractable && interactable.homePosition != cauldronPosition && interactable.homePosition != finishedPotionPosition)
+            if (Input.IsMouseButtonPressed(0, MouseInput.Left) && closeToInteractable && interactable.homePosition != cauldronPosition && interactable.homePosition != finishedPotionPosition)
             {
                 interactable.Interact();
             }
