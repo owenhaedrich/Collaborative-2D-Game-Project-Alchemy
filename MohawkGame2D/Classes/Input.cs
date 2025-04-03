@@ -394,7 +394,7 @@ public static class Input
     /// <returns>
     ///     Returns true if mouse button was pressed this frame, false otherwise.
     /// </returns>
-    public static bool IsMouseButtonPressed(MouseInput button) => Raylib.IsMouseButtonPressed((Raylib_cs.MouseButton)button);
+    public static bool IsMouseButtonPressed(int v, MouseInput button) => Raylib.IsMouseButtonPressed((Raylib_cs.MouseButton)button);
 
     /// <summary>
     ///     Checks if mouse button was released this frame.
