@@ -49,12 +49,20 @@ public class Game
 
     // Backgrounds
     Texture2D gameBackground = Graphics.LoadTexture("../../../assets/Screens/Game_Background.png");
+    Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
+
+    //Cauldron
     Texture2D cauldron = Graphics.LoadTexture("../../../assets/graphics/Cauldron.png");
     Texture2D cauldronLit = Graphics.LoadTexture("../../../assets/graphics/CauldronLit.png");
-    Texture2D StartScreen = Graphics.LoadTexture("../../../assets/Screens/StartScreen.png");
+    Texture2D bubbleSprite = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
+
+    //scroll
     Texture2D IngredientScroll = Graphics.LoadTexture("../../../assets/Screens/IngredientsScroll.png");
     Texture2D RecipeScroll = Graphics.LoadTexture("../../../assets/Screens/RecipeScroll.png");
-    Texture2D bubbleSprite = Graphics.LoadTexture("../../../assets/graphics/Bubble.png");
+
+    //Music
+    Music Witchy = Audio.LoadMusic("../../../assets/Music/Witchy.MP3");
+    Music PotionMusic = Audio.LoadMusic("../../../assets/Music/Potions.MP3");
 
     // Click Effect
     static public Texture2D F01 = Graphics.LoadTexture("../../../assets/PotionParticles/000.png");
@@ -174,6 +182,7 @@ public class Game
     {
         Window.ClearBackground(Color.OffWhite);
         Graphics.Draw(StartScreen, 0, 0);
+        Audio.Play(Witchy);
     }
 
     public void Play()
@@ -181,6 +190,9 @@ public class Game
         Window.ClearBackground(Color.OffWhite);
 
         Graphics.Draw(gameBackground, 0, 0);
+
+        Audio.Pause(Witchy);
+        Audio.Play(PotionMusic);
 
         ManageCauldron();
         ManageInteractables();
