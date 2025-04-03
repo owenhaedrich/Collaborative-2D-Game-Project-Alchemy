@@ -81,6 +81,7 @@ namespace Collaborative_2D_Game_Project
         {
             texture = new Texture2D();
             free = true;
+            material = null;
         }
     }
 }

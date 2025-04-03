@@ -253,6 +253,8 @@ public class Game
         int consumedMaterialCount = 0;
         if (allInCauldron && freeCount < bottlesInCauldron.Length)
         {
+            Interactable combination = CombineBottles(bottlesInCauldron);
+
             foreach (Interactable bottle in bottlesInCauldron)
             {
                 if (bottle is not null)
@@ -262,8 +264,6 @@ public class Game
                     bottle.Free();
                 }
             }
-
-            Interactable combination = CombineBottles(bottlesInCauldron);
 
             // Spawn the combination in a free bottle slot
             if (combination.material.name != "Junk")
@@ -302,17 +302,19 @@ public class Game
                 }
 
                 bool foundExisting = false;
-                // First, check if there's an existing free bottle with the same home position
+                // First, check if there's an existing free bottle with the same material
                 for (int i = 0; i < bottles.Length; i++)
                 {
-                    if (bottles[i] != null && bottles[i].free && bottles[i].homePosition == homePos)
+                    if (bottles[i] != null)
                     {
-                        // Reset the existing bottle
-                        bottles[i].material = consumedMaterial;
-                        bottles[i].position = respawnerPosition - Interactable.bottleSize / 2;
-                        bottles[i].free = false;
-                        foundExisting = true;
-                        break;
+                        if (bottles[i].material != null)
+                        { 
+                            if (bottles[i].material.ID == consumedMaterial.ID)
+                            {                  
+                                foundExisting = true;
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -323,7 +325,7 @@ public class Game
                     {
                         if (bottles[i].free)
                         {
-                            Interactable newBottle = new Interactable(Interactable.EmptyBottle, respawnerPosition - Interactable.bottleSize / 2, consumedMaterial);
+                            Interactable newBottle = new Interactable(Interactable.EmptyBottle, respawnerPosition, consumedMaterial);
                             newBottle.homePosition = homePos;
                             bottles[i] = newBottle;
                             break;
@@ -409,7 +411,7 @@ public class Game
             }
 
             // Check if the interactable is released over the cauldron - ignore if the home position is tha cauldron
-            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.homePosition != cauldronPosition)
+            if (Vector2.Distance(interactable.position + interactableSize / 2, cauldronPourPosition) < cauldronRadius && Input.IsMouseButtonReleased(MouseInput.Left) && interactable.homePosition != cauldronPosition && interactable.homePosition != finishedPotionPosition)
             {
                 interactable.homePosition = cauldronPourPosition;
             }
